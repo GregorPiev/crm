@@ -1,0 +1,102 @@
+<style>
+    li.dropdown ul.dropdown-menu .brand-link{font-size: 16px;}
+    li.dropdown ul.dropdown-menu .brand-link span{margin-left: 5px;}
+</style>
+<script>
+    var globalBrandName = '{$current_brand.name}';
+    var capitalBrandName = capitalize(globalBrandName);
+    function doCapital(text) {
+        var newText = '';
+        for (var i = 0; i < text.length; i++) {
+            if (i == 0) {
+                newText += '<span>' + text[i].toUpperCase() + '</span>';
+            } else {
+                newText += text[i];
+            }
+        }
+        return newText;
+    }
+    function getURLString() {
+        var pathArray= window.location.pathname.split('/');
+        pathArray.shift();
+        pathArray.shift();
+        var path = pathArray.join('/');
+        return path;
+    }
+    function doLink(bName) {
+        var curLink = '';
+        curLink += '<a class="brand-link" href="/' + bName + '/' + getURLString() + '">';
+        curLink += '<img src="{$GLOBALS.theme_path}img/logos/' + bName + '-icon.png"  />';
+        curLink += doCapital(bName);
+        curLink += '</a>';
+        document.write(curLink);
+    }
+    function capitalize(s) {
+        return s && s[0].toUpperCase() + s.slice(1);
+    }
+</script>
+<nav id="top-bar" class="collapse top-bar-collapse">
+
+    <ul class="nav navbar-nav pull-left">
+        <li class="">
+            <a href="./dashboard">
+                <i class="fa fa-home"></i>
+            </a>
+        </li>
+
+        {if="$brandlength>1"}
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                Brand <span class="caret"></span>
+            </a>
+
+
+            <ul class="dropdown-menu" role="menu">
+                {loop="authorized_brands"}
+                <li><script>doLink('{$value.name}');</script></li>
+                {/loop}
+            </ul>
+        </li>
+        {/if}
+
+
+    </ul>
+
+    <ul class="nav navbar-nav pull-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                <i class="fa fa-user"></i>
+                {$fullname}
+                <span class="caret"></span>
+            </a>
+
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="/{$current_brand.name}/user/change_password">
+                        <i class="fa fa-user"></i>
+                        &nbsp;&nbsp;Change Password
+                    </a>
+                </li>
+
+                {if="$per_admin"}
+                <li>
+                    <a href="/{$current_brand.name}/admin/users">
+                        <i class="fa fa-users"></i>
+                        &nbsp;&nbsp;Users
+                    </a>
+                </li>
+                {/if}
+
+
+                <li class="divider"></li>
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i>
+                        &nbsp;&nbsp;Logout
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</nav> <!-- /#top-bar --><strong></strong>

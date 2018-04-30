@@ -1,0 +1,966 @@
+	<div id="sidebar-wrapper" class="collapse sidebar-collapse">
+
+		<div id="search">
+
+     <!--
+			<form>
+     
+				<input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
+
+				<button type="submit" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
+			</form>
+		-->
+
+	</div> <!-- #search -->
+	
+	<nav id="sidebar">		
+
+		<ul id="main-nav" class="open-active">
+			{if="$userdata.per_dashboard"} 
+			<li {if="$section=='dashboard'"}class="active"{/if}>				
+				<a href="/{$brandName}/dashboard/">
+					<i class="fa fa-dashboard"></i>
+					Dashboard
+				</a>				
+			</li>
+			{/if}
+
+			{if="$userdata.per_customers"}		
+		<li class="dropdown {if="$section=='customers'"}opened active{/if}">
+				<a href="javascript:;">
+					<i class="fa fa-group"></i>
+					Customers
+					<span class="caret"></span>
+				</a>				
+
+			
+				<ul class="sub-nav" {if="$section=='customers'"}style="display:block;" {/if} >
+								<li>
+									 <a href="/{$brandName}/customers/documents">
+										<i class="fa fa-file-text-o"></i> 
+										Verification Documents 
+									</a>
+								</li>
+			
+								<li>
+									<a href="/{$brandName}/customers/noaddress">
+										<i class="fa fa-question-circle"></i> 
+										Missing address
+									</a>
+								</li>
+			
+								{if="$userdata.per_suport"}
+								<li>
+									<a href="/{$brandName}/customers/resetpassword">
+										<i class="fa fa-question-circle"></i> 
+										Reset password
+									</a>
+								</li>
+								{/if}
+			
+							</ul>	
+								
+
+			</li>
+			{/if}
+
+			{if="$userdata.per_agent"}    
+			<li class="dropdown {if="$section=='agenttools'"}opened active{/if}">
+				<a href="javascript:;">
+					<i class="fa fa-briefcase"></i>
+					Agent Tools
+					<span class="caret"></span>
+				</a>        
+
+				<ul class="sub-nav" {if="$section=='agenttools'"}style="display:block;" {/if} >
+				
+					<li>
+										<a href="/{$brandName}/agenttools/online">
+											<i class="fa fa-laptop"></i> 
+											Conversion Online Customers
+										</a>
+									</li>
+				
+									<li>
+										<a href="/{$brandName}/agenttools/retonline">
+											<i class="fa fa-laptop"></i> 
+											Retention Online Customers
+										</a>
+									</li>
+				
+				
+					<li>
+						<a href="/{$brandName}/agenttools/customer_card">
+							<i class="fa fa-user"></i> 
+							Customer Card
+						</a>
+					</li>
+				
+					<li>
+						 <a href="/{$brandName}/agenttools/depositform">
+						   <i class="fa fa-laptop"></i>
+							 Spot Payment deposits system
+					   </a>
+				    </li>
+				
+					<li>
+										<a href="/{$brandName}/agenttools/notcalleddepositors">
+											<i class="fa fa-headphones"></i> 
+											Uncalled Depositors
+										</a>
+									</li>
+				
+					
+					<!--
+					<li>
+						<a href="/agenttools/autodialer">
+							<i class="fa fa-phone"></i> 
+							Auto Dialer
+						</a>
+					</li>-->
+					
+				{if="$system_name == 'northStar'"}	
+					<!--
+					<li>
+											<a href="/agenttools/cc_bin_check">
+												<i class="fa fa-cc"></i> 
+												 BIN Check
+											</a>
+										</li>
+										<li>
+											<a href="/agenttools/3dDeposits">
+												<i class="fa fa-laptop"></i> 
+												3D deposits
+											</a>
+										</li>-->
+					
+	               <!--
+					   <li>
+											 <a href="/agenttools/3d_deposits">
+											   <i class="fa fa-laptop"></i>
+											   3D deposits system
+										   </a>
+									   </li>-->
+				   
+					{if="$userdata.per_ccdeposits"}	
+	            	<!--
+					<li>
+											<a href="/agenttools/cc_deposits">
+												<i class="fa fa-laptop"></i>
+												Credit Card Deposits
+											</a>
+									   </li>-->
+					
+		           {/if}
+		           
+				{/if}	
+				</ul>           
+
+			</li>
+			
+		<li class="dropdown {if="$section=='agentreports'"}opened active{/if}">
+			
+				<a href="javascript:;">
+									<i class="fa fa-briefcase"></i>
+									Agent Reports
+									<span class="caret"></span>
+								</a>        
+				
+				
+				
+				<ul class="sub-nav" {if="$section=='agentreports-'"}style="display:block;" {/if} >
+									
+									<li>
+										<a href="/{$brandName}/agentreports/turnover">
+											<i class="fa fa-money"></i> 
+											My Customers Turnover
+										</a>
+									</li>					
+														
+									<li>
+										<a href="/{$brandName}/agentreports/portfolio">
+											<i class="fa fa-briefcase"></i> 
+											My Portfolio
+										</a>
+									</li>
+									
+									<li>
+										<a href="/{$brandName}/agentreports/transaction">
+											<i class="fa fa-briefcase"></i> 
+											My Transaction
+										</a>
+									</li>
+									
+									<li>
+										<a href="/{$brandName}/agentreports/withdrawalrequests">
+											<i class="fa fa-briefcase"></i> 
+											My Withdrawal Requests
+										</a>
+									</li>
+				
+                    {if="$userdata.per_retention"}
+                    
+                    <li>
+                                            <a href="/{$brandName}/agentreports/commission">
+                                                <i class="fa fa-briefcase"></i> 
+                                                My Commission
+                                            </a>
+                                        </li> 
+                                        
+                                        <li>
+                                            <a href="/{$brandName}/agentreports/ftd">
+                                                <i class="fa fa-briefcase"></i> 
+                                                My FTDs
+                                            </a>
+                                        </li>
+                                                                                    <li>
+                                            <a href="/{$brandName}/agentreports/tradingstatus">
+                                                <i class="fa fa-briefcase"></i> 
+                                                My Trading Status
+                                            </a>
+                                        </li>
+                    
+					{/if}
+					{if="$userdata.per_conversion"}	
+					
+					<li>
+											<a href="/{$brandName}/agentreports/conversioncommission">
+												<i class="fa fa-briefcase"></i> 
+												My Conversion Commission
+											</a>
+										</li> 
+					
+					{/if} 
+			
+				</ul>           
+			
+						</li>
+			
+			{/if}
+
+			{if="$userdata.per_affiliates"}		
+			<!--
+			<li class="dropdown {if="$section=='affiliates'"}opened active{/if}">
+							<a href="javascript:;">
+								<i class="fa fa-group"></i>
+								Affiliates
+								<span class="caret"></span>
+							</a>				
+			
+							<ul class="sub-nav" {if="$section=='affiliates'"}style="display:block;" {/if} >
+								<li>
+									<a href="/affiliates/atc">
+										<i class="fa fa-file-text-o"></i> 
+										Affiliates to Campaigns
+									</a>
+								</li>
+								<li>
+									<a href="/affiliates/raf">
+										<i class="fa fa-file-text-o"></i> 
+										Affiliates RAF
+									</a>
+								</li>
+			
+			
+							</ul>						
+			
+						</li>-->
+			
+			{/if}
+
+			{if="$userdata.per_ibsystem"}
+			<li class="dropdown {if="$section=='ibsystem'"}opened active{/if}">
+				<a href="javascript:;">
+					<i class="fa fa-group"></i>
+					Managers
+					<span class="caret"></span>
+				</a>				
+
+				<ul class="sub-nav" {if="$section=='ibsystem'"}style="display:block;" {/if} >
+					 <li>
+						<a href="/{$brandName}/ibsystem/nodesk">
+							<i class="fa fa-file-text-o"></i> 
+							Unassigned Customers
+						</a>
+					</li>
+				<!--	<li>
+						<a href="/ibsystem/brokers">
+							<i class="fa fa-file-text-o"></i> 
+							Brokers list
+						</a>
+				</li> -->
+					<li>
+						<a href="/{$brandName}/ibsystem/customerassign">
+							<i class="fa fa-user-plus"></i> 
+							Customer Assign
+						</a>
+					</li>
+
+					<li>
+						<a href="/{$brandName}/ibsystem/campaignassign">
+							<i class="fa fa-briefcase"></i>
+							Campaign Assign
+						</a>
+				</li> 
+					
+			          <li>
+			            <a href="/{$brandName}/ibsystem/depositors">
+			              <i class="fa fa-credit-card"></i> 
+			              Depositors
+			            </a>
+			          </li>
+
+			           <li>
+			            <a href="/{$brandName}/ibsystem/customerchangelog">
+			              <i class="fa fa-credit-card"></i> 
+			              Customer Change Log
+			            </a>
+			          </li>
+			          
+			       
+			          
+			          <li>
+			            <a href="/{$brandName}/ibsystem/newccdeposit">
+			              <i class="fa fa-credit-card"></i> 
+			              New CC Deposit
+			            </a>
+			          </li>
+			          
+			    <!--       <li>
+			            <a href="/ibsystem/customerdatatool">
+			              <i class="fa fa-credit-card"></i> 
+			              Customer Data Tool
+			            </a>
+			          </li> -->
+			          
+			         
+					
+          
+				</ul>						
+
+			</li>		
+			{/if}
+
+			{if="$userdata.per_reports"}
+			
+			<li class="dropdown {if="$section=='reports'"}opened active{/if}">
+							<a href="javascript:;">
+								<i class="fa fa-bar-chart-o"></i>
+								Financial Reports
+								<span class="caret"></span>
+							</a>
+			
+							<ul class="sub-nav" {if="$section=='reports'"}style="display:block;" {/if} >
+			
+				  {if="$notAffGroup"}
+				 	{if="$userdata.per_reportrestrict!=1"}
+					  <li>
+											 <a href="/{$brandName}/reports/turnover">
+												 <i class="fa fa-money"></i> 
+												 Customers Turnover
+											 </a>
+										 </li>
+					{/if} 
+					{if="$userdata.per_pnl"}	
+					
+					<li>
+											<a href="/{$brandName}/reports/pnl3">
+												<i class="fa fa-money"></i> 
+												Quick PNL
+											</a>
+										</li>
+										
+										<li>
+											<a href="/{$brandName}/reports/dirtypnl">
+												<i class="fa fa-money"></i> 
+												Dirty PNL
+											</a>
+										</li>
+					
+					{/if}
+
+					{if="$userdata.per_reportrestrict!=1"}
+					<li>
+											<a href="/{$brandName}/reports/gamingtax">
+												<i class="fa fa-money"></i> 
+												Gaming Tax
+											</a>
+										</li>
+										
+										<li>
+											<a href="/{$brandName}/reports/profitloss">
+												<i class="fa fa-compass"></i> 
+												Profit Loss
+											</a>
+										</li>
+																	   <li>
+								<a href="/{$brandName}/reports/payouts">
+								  <i class="fa fa-flag-checkered"></i> 
+								  Payouts
+								</a>
+							  </li>
+					{/if}
+                   {/if}
+
+					
+					<li>
+											<a href="/{$brandName}/reports/transactions">
+												<i class="fa fa-money"></i> 
+												Transactions
+											</a>
+										</li>
+										
+										
+					
+					{if="$notAffGroup"}
+					
+					
+				    {if="$userdata.per_reportrestrict!=1"}
+					<li>
+										<a href="/{$brandName}/reports/chargebacks">
+											<i class="fa fa-money"></i> 
+											Charge Backs
+										</a>
+									</li>
+				
+									
+				
+				
+				
+									<li>
+										<a href="/{$brandName}/reports/withdrawalrequests">
+											<i class="fa fa-money"></i> 
+											Withdrawal Requests
+										</a>
+									</li>
+				
+									<li>
+										<a href="/{$brandName}/reports/selfdeposits">
+											<i class="fa fa-money"></i> 
+											Self Deposits
+										</a>
+									</li>
+				
+					
+					<!-- li>
+						<a href="/reports/rm">
+							<i class="fa fa-money"></i> 
+							RM Commissions
+						</a>
+					</li -->
+
+					
+					<li>
+											<a href="/{$brandName}/reports/faileddeposits">
+												<i class="fa fa-exclamation-triangle"></i> 
+												Failed Deposits
+											</a>
+										</li>
+					
+										<li>
+											<a href="/{$brandName}/reports/pendingpositions">
+												<i class="fa fa-line-chart"></i> 
+												Pending Positions
+											</a>
+										</li>
+			{/if}		
+          {/if}
+
+			
+				</ul>
+						</li>
+			
+			{/if}
+
+			{if="$userdata.per_administrative"}
+		
+			<li class="dropdown {if="$section=='administrative'"}opened active{/if}">
+						<a href="javascript:;">
+							<i class="fa fa-bar-chart-o"></i>
+							Administrative Reports
+							<span class="caret"></span>
+						</a>
+		
+						<ul class="sub-nav" {if="$section=='administrative'"}style="display:block;" {/if} >
+							<li>
+								<a href="/{$brandName}/administrative/documents">
+									<i class="fa fa-book"></i> 
+									Documents
+								</a>
+							</li>
+						   <li>
+					<a href="/{$brandName}/administrative/firstbonusreport">
+					  <i class="fa fa-money"></i> 
+					  First Bonus Report
+					</a>
+				  </li>
+				  <li>
+					<a href="/{$brandName}/administrative/speed">
+					  <i class="fa fa-money"></i> 
+					  Verification Speed
+					</a>
+				  </li>
+				  <li>
+					<a href="/{$brandName}/administrative/withdrawals">
+					  <i class="fa fa-money"></i> 
+					  Withdrawals
+					</a>
+				  </li>
+		
+			<!--				<li>
+								<a href="/administrative/currencies">
+									<i class="fa fa-money"></i> 
+									FTDs by Currency
+								</a>
+			                    </li>  -->
+		
+							<li>
+								<a href="/{$brandName}/administrative/unactiveplayers">
+									<i class="fa fa-money"></i> 
+									Unactive Players 
+								</a>
+							</li>
+		
+							<li>
+								<a href="/{$brandName}/administrative/tradesbyip">
+									<i class="fa fa-flag-checkered"></i> 
+									Last Trades by IP
+								</a>
+							</li>
+		
+						<li>
+								<a href="/{$brandName}/administrative/employees">
+									<i class="fa fa-group"></i> 
+									Employee's Actions
+								</a>
+							</li>
+						   <li>
+					<a href="/{$brandName}/administrative/desks">
+					  <i class="fa fa-group"></i> 
+					  Employee's Desk
+					</a>
+				  </li>
+									   <li>
+								<a href="/{$brandName}/administrative/duplicated">
+									<i class="fa fa-gavel"></i> 
+									Duplicated Accounts
+								</a>
+							</li>
+		
+					<!--		<li>
+								<a href="/administrative/bounces">
+									<i class="fa fa-group"></i> 
+									Email Bounce Report
+								</a>
+					</li> -->
+							
+						</ul>
+					</li>
+		
+			{/if}
+
+			{if="$userdata.per_traffic"}			
+			
+			<li class="dropdown {if="$section=='traffic'"}opened active{/if}">
+							<a href="javascript:;">
+								<i class="fa fa-road"></i>
+								Traffic
+								<span class="caret"></span>
+							</a>				
+			
+							<ul class="sub-nav" {if="$section=='traffic'"}style="display:block;" {/if} >
+								<li>
+									<a href="/{$brandName}/traffic/affiliates">
+										<i class="fa fa-file-text-o"></i> 
+										Performance
+									</a>
+								</li>
+								<li>
+									<a href="/{$brandName}/traffic/leads">
+										<i class="fa fa-file-text-o"></i> 
+										Leads
+									</a>
+								</li>
+								<li>
+									<a href="/{$brandName}/traffic/countries">
+										<i class="fa fa-file-text-o"></i> 
+										Countries
+									</a>
+								</li>
+			
+					{if="$notAffGroup"}
+				
+					<li>
+										<a href="/{$brandName}/traffic/flagging">
+											<i class="fa fa-file-text-o"></i> 
+											Flagging
+										</a>
+									</li>
+				
+          {/if}
+          
+                              <li>
+                                  <a href="/{$brandName}/traffic/trend">
+                                      <i class="fa fa-file-text-o"></i>
+                                      Trend Report
+                                  </a>
+                              </li>
+                              
+                              <li>
+                                  <a href="/{$brandName}/traffic/salestatus">
+                                      <i class="fa fa-file-text-o"></i>
+                                      Sale Status Report
+                                  </a>
+                              </li>
+                              
+                               <li>
+                                  <a href="/{$brandName}/traffic/hourlydepositsstatistics">
+                                      <i class="fa fa-file-text-o"></i>
+                                       Hourly Deposits Statistics
+                                  </a>
+                              </li>
+          
+                    {if="$userdata.per_conversionperformance"}
+                    
+                    <li>
+                                            <a href="/{$brandName}/traffic/conversioncommission">
+                                                <i class="fa fa-bar-chart-o"></i>
+                                                 Conversion Commission
+                                            </a>
+                                        </li>
+                    
+                    {/if}
+                    <li>
+                        <a href="/{$brandName}/traffic/customersdata">
+                            <i class="fa fa-bar-chart-o"></i>
+                            Customers Data
+                        </a>
+                    </li>
+                    <li>
+                                           <a href="/{$brandName}/traffic/freshleads">
+                                               <i class="fa fa-bar-chart-o"></i>
+                                                Fresh Leads
+                                           </a>
+                                       </li>
+                                       <li>
+                                           <a href="/{$brandName}/traffic/freshleadsvsftds">
+                                               <i class="fa fa-bar-chart-o"></i>
+                                                Fresh Leads vs FTDs
+                                           </a>
+                                       </li>
+                     <!--                   <li>
+                                           <a href="/traffic/agentsalestatus">
+                                               <i class="fa fa-bar-chart-o"></i>
+                                                Agent Sale Status
+                                           </a>
+                                       </li> -->
+                                   </ul>						
+                                                      </li>
+                   
+			{/if}
+
+			{if="$userdata.per_promo"}			
+			
+			<li class="dropdown {if="$section=='promo'"}opened active{/if}">
+							<a href="javascript:;">
+								<i class="fa fa-bullhorn"></i>
+								Promo Codes
+								<span class="caret"></span>
+							</a>				
+			
+							<ul class="sub-nav" {if="$section=='promo'"}style="display:block;" {/if} >
+								<li>
+									<a href="/{$brandName}/promo/usage">
+										<i class="fa fa-file-text-o"></i> 
+										Usage Report
+									</a>
+								</li>
+								<li>
+									<a href="/{$brandName}/promo/manage">
+										<i class="fa fa-file-text-o"></i> 
+										Manage Promo Codes
+									</a>
+								</li>
+								<li>
+									<a href="/{$brandName}/promo/bonuses">
+										<i class="fa fa-gift"></i> 
+										Manage FTD Bonuses
+									</a>
+								</li>
+								<li>
+									<a href="/{$brandName}/promo/bonusesusage">
+										<i class="fa fa-credit-card"></i> 
+										FTD Bonuses Usage
+									</a>
+								</li>
+							</ul>						
+			
+						</li>
+			
+			{/if}
+			
+			{if="$userdata.per_secret"}
+			<li class="dropdown {if="$section=='secret'"}opened active{/if}">
+				<a href="javascript:;">
+					<i class="fa fa-lock"></i>
+					Secret
+					<span class="caret"></span>
+				</a>				
+				
+				<ul class="sub-nav" {if="$section=='secret'"}style="display:block;" {/if} >
+					{if="$userdata.per_defrayment"}
+		<!--
+					<li>
+								<a href="/secret/deskchange">
+									<i class="fa fa-exchange"></i> 
+									Desk Change Report
+								</a>
+							</li>		        	
+					<li>
+						<a href="/secret/verificationchangelog">
+						  <i class="fa fa-credit-card"></i> 
+						  Verification Change Log
+						</a>
+					</li>
+				  <li>
+					  <a href="/secret/registrationchangelog">
+						<i class="fa fa-credit-card"></i> 
+						Registration Change Log
+					  </a>
+				  </li>-->
+		
+		      {/if}
+			        
+	        <li>
+	            <a href="/{$brandName}/secret/defrayment">
+	              <i class="fa fa-credit-card"></i> 
+	              3D-Defrayment
+	            </a>
+	        </li>
+	        
+	    <!--
+			<li>
+						<a href="/secret/processors_order_by_currency">
+						  <i class="fa fa-credit-card"></i> 
+						  Processors By Currency
+						</a>
+					</li>   -->
+		
+	        {if="$userdata.per_spotapiconnectivity"}	
+	            	<!--
+					<li>
+											<a href="/secret/spot_api_connectivity">
+												<i class="fa fa-link"></i>
+												Spot Api Connectivity
+											</a>
+									   </li>-->
+					
+		           {/if} 
+	        
+			        		
+				</ul>	
+
+			</li>
+			{/if}
+
+
+
+
+		
+		
+		{if="$userdata.per_analytics"}
+			
+			<li class="dropdown {if="$section=='analytics'"}opened active{/if}">
+							<a href="javascript:;">
+								<i class="fa fa-bar-chart-o"></i>
+								Psych Dreams
+								<span class="caret"></span>
+							</a>
+			
+							<ul class="sub-nav" {if="$section=='analytics'"}style="display:block;" {/if} >
+							    <li>
+						          <a href="/{$brandName}/analytics/newpnl">
+							        <i class="fa fa-bar-chart-o"></i> 
+							        New Quick PNL
+						          </a>
+				                </li>
+							    <li>
+									<a href="/{$brandName}/analytics/bigdepositors">
+										<i class="fa fa-credit-card"></i> 
+										Big Depositors
+									</a>
+								</li>
+			
+		            {if="$userdata.per_retentionperformance"}
+					
+					<li>
+											<a href="/{$brandName}/analytics/commission">
+												<i class="fa fa-bar-chart-o"></i> 
+												Commissions
+											</a>
+										</li>
+					
+					{/if}
+				
+					<li>
+										<a href="/{$brandName}/analytics/withdrawals">
+											<i class="fa fa-bar-chart-o"></i> 
+											Withdrawals
+										</a>
+									</li>
+				<!--					<li>
+										<a href="/analytics/scores">
+											<i class="fa fa-bar-chart-o"></i> 
+											Agent Scores
+										</a>
+									</li>
+									<li>
+										<a href="/analytics/efficiency">
+											<i class="fa fa-bar-chart-o"></i> 
+											Agent Efficiency
+										</a>
+									</li>
+									<li>
+										<a href="/analytics/agent">
+											<i class="fa fa-bar-chart-o"></i> 
+											Agent Report
+										</a>
+									</li> -->
+									<li>
+										<a href="/{$brandName}/analytics/noturnover">
+											<i class="fa fa-money"></i> 
+											Didn't Trade
+										</a>
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/retention">
+											<i class="fa fa-money"></i> 
+											Customer Shuffling
+										</a>
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/r_scores">
+											<i class="fa fa-bar-chart-o"></i> 
+											Real Scores
+										</a>
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/chart">
+											<i class="fa fa-bar-chart-o"></i> 
+											Retention Charts
+										</a>
+						</li> 
+									<li>
+										<a href="/{$brandName}/analytics/ftd">
+											<i class="fa fa-bar-chart-o"></i> 
+											FTDs
+										</a>
+									
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/months">
+											<i class="fa fa-bar-chart-o"></i> 
+											Deposits By First Deposit Month
+										</a>
+									
+						</li>  
+									<li>
+										<a href="/{$brandName}/analytics/tradingstatus">
+											<i class="fa fa-bar-chart-o"></i> 
+											Trading Status
+										</a>
+									
+									</li>
+									{if="$userdata.per_tradesessions"}
+									<li>
+										<a href="/{$brandName}/analytics/tradingsessions">
+											<i class="fa fa-bar-chart-o"></i> 
+											Trading Sessions
+										</a>
+									
+									</li>
+									{/if}
+									<li>
+						                <a href="/{$brandName}/analytics/deskchange">
+							                <i class="fa fa-bar-chart-o"></i> 
+						                    Desk Change	
+						                </a>
+					
+					                </li>
+									<li>
+										<a href="/{$brandName}/analytics/openchart">
+											<i class="fa fa-bar-chart-o"></i> 
+											Open Positions Chart
+										</a>
+									
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/openpositions">
+											<i class="fa fa-bar-chart-o"></i> 
+											Open Positions
+										</a>
+									
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/realpnl">
+											<i class="fa fa-bar-chart-o"></i> 
+											Real PNL
+										</a>
+									
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/realpnlnetdeposit">
+											<i class="fa fa-bar-chart-o"></i> 
+											Real PNL vs Net Deposit
+										</a>
+									
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/campaigns">
+											<i class="fa fa-bar-chart-o"></i> 
+											Campaigns
+										</a>
+									
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/academy">
+											<i class="fa fa-bar-chart-o"></i> 
+											Academy
+										</a>
+									
+									</li>
+									<li>
+										<a href="/{$brandName}/analytics/realpnlchanges">
+											<i class="fa fa-bar-chart-o"></i> 
+											Real PNL Changes
+										</a>
+															</li> 
+								 </ul>		
+				
+							</li>
+				
+			{/if} 
+			{if="$userdata.per_vincimanagers"}
+			<li class="dropdown {if="$section=='vincimanagers'"}opened active{/if}">
+							<a href="javascript:;">
+								<i class="fa fa-bar-chart-o"></i>
+								Vinci Managers
+								<span class="caret"></span>
+							</a>
+			
+							<ul class="sub-nav" {if="$section=='vincimanagers'"}style="display:block;" {/if} >
+							    <li>
+						          <a href="/{$brandName}/vincimanagers/retentioncommissions">
+							        <i class="fa fa-bar-chart-o"></i> 
+							        Retention Commissions
+						          </a>
+				                </li>
+							</ul>
+			</li>
+			{/if}				    
+		</ul>	
+
+
+	</nav> <!-- #sidebar -->
+
+</div> <!-- /#sidebar-wrapper -->

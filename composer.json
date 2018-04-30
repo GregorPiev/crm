@@ -1,0 +1,13 @@
+{
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "predis/predis": "^1.0"
+        "dercoder/omnipay-ecopayz": "~1.0",
+        "geosub/neteller-omnipay": "~1.0",
+        "alfaproject/omnipay-skrill": "dev-master",
+        "mfauveau/omnipay-gate2shop": "~2.0",
+        "mfauveau/omnipay-safecharge": "~2.0"
+    }
+}
+

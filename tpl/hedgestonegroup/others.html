@@ -1,0 +1,177 @@
+
+ 	
+	<div id="content">		
+		
+		<div id="content-header">
+			<h1>Others</h1>
+		</div> <!-- #content-header -->	
+
+
+		<div id="content-container">
+      
+      <div class="row">
+      <div class="col-md-3 col-sm-6">
+      <div class="btn-group" data-toggle="buttons">
+								  <label class="btn btn-sm btn-default {if="$show=='all'"}active{/if}">
+								    <input type="radio" name="options" id="option1" onchange="window.location='/others/all';"> View all content
+								  </label>
+								  <label class="btn btn-sm btn-default {if="$show=='missing'"}active{/if}">
+								    <input type="radio" name="options" id="option2" onchange="window.location='/others/missing';"> View missing translations 
+								  </label>
+							
+								</div>
+                </div>
+      </div>
+
+   <!--
+{loop="data"}
+{$value.en}=
+    
+{/loop}
+   -->
+
+
+
+     {loop="data"}
+      
+     
+     
+				<div class="row trows"  id="row_{$key}">
+
+				<div class="col-md-12">
+
+
+
+
+
+
+					<div class="row">
+
+					<div class="col-md-6">
+
+						<div class="portlet">
+
+							<div class="portlet-header">
+
+								<h3>
+									English (ID: {$key})
+								</h3>
+
+							
+
+							</div> <!-- /.portlet-header -->
+
+							<div class="portlet-content">
+
+					<form class="form-horizontal" >
+            
+						<div class="form-group">
+							<label class="col-md-2">Content</label>
+
+							<div class="col-md-10">
+							  <textarea class="form-control">{$value.en}</textarea>
+							</div>
+						</div>
+            
+            
+            
+					</form>
+
+					
+							</div> <!-- /.portlet-content -->
+
+						</div> <!-- /.portlet -->
+
+
+					</div> <!-- /.col-md-4 -->
+
+
+
+					<div class="col-md-6">
+
+						<div class="portlet">
+
+							<div class="portlet-header">
+
+								<h3>
+									<span style="color:#258cd1">{$langName}</span> (ID: {$key}) 
+								</h3>
+
+								<ul class="portlet-tools pull-right">
+									   <li>
+										<button class="btn btn-sm btn-default" onclick="hideTranslation('{$key}');">
+                      Skip for now
+										</button>
+									</li>
+                 
+								</ul>
+
+							</div> <!-- /.portlet-header -->
+
+							<div class="portlet-content">
+
+
+								<div class="table-responsive">
+
+					<form class="form-horizontal" id="form-{$key}" >
+          
+               <input type="hidden" name="type" value="others" />
+            <input type="hidden" name="id" value="{$key}" />
+            <input type="hidden" name="lang" value="{$lang}" />
+            
+						<div class="form-group">
+							<label class="col-md-2">Content</label>
+
+							<div class="col-md-10">
+							  <textarea class="form-control" name="other" >{$value.other}</textarea>
+							</div>
+						</div>
+          
+
+            
+					</form>
+							 	<div class="pull-right">
+									
+										<button class="btn btn-lg btn-secondary" onclick="submitTranslation('{$key}');">
+                      Save Translation
+										</button>
+                  
+               
+								</div>			
+
+								</div> <!-- /.table-responsive -->
+
+								
+							</div> <!-- /.portlet-content -->
+
+						</div> <!-- /.portlet -->
+
+					</div> <!-- /.col-md-4 -->
+
+
+				</div> <!-- /.row -->
+
+
+
+
+
+
+			
+
+
+
+				</div> <!-- /.col-md-9 -->
+
+
+
+
+
+			</div> <!-- /.row -->
+      {/loop}
+
+		</div> <!-- /#content-container -->
+		
+
+	</div> <!-- #content -->	
+	
+           <script src="{$GLOBALS.theme_path}js/translations.js"></script>

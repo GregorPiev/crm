@@ -1,0 +1,192 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
+using SK.DAL.CmsDAL;
+using SK.DAL.Entities;
+using SK.DAL.Enumerations;
+using StructureMap;
+
+namespace SK.Payment.SolidPayment
+{
+    public static class SolidPaymentWrapper
+    {
+
+        static string GetSendFormParams(PaymentOrder model, string company, string affiliate, string age, string knwn, string customerId, string bankName, string cssPath , string jsPath, string termsUrl, string topLink, string topSize, string bottomLink)
+        {
+            var parameters = new StringBuilder();
+
+            parameters.Append(string.Format("REQUEST.VERSION={0}", SiteKitSettings.System.SolidPaymentRequestVersion));
+            parameters.Append(string.Format("&SECURITY.SENDER={0}", SiteKitSettings.System.SolidPaymentSecuritySender));
+            parameters.Append(string.Format("&USER.LOGIN={0}", SiteKitSettings.System.SolidPaymentUserLogin));
+            parameters.Append(string.Format("&USER.PWD={0}", SiteKitSettings.System.SolidPaymentUserPwd));
+            parameters.Append(string.Format("&TRANSACTION.MODE={0}", SiteKitSettings.System.SolidPaymentTransactionMode));
+            parameters.Append(string.Format("&TRANSACTION.RESPONSE={0}", SiteKitSettings.System.SolidPaymentTransactionResponse));
+            parameters.Append(string.Format("&TRANSACTION.CHANNEL={0}", SiteKitSettings.System.SolidPaymentTransactionChannel));
+            parameters.Append(string.Format("&IDENTIFICATION.TRANSACTIONID={0}", model.OrderId));
+            parameters.Append(string.Format("&IDENTIFICATION.UNIQUEID={0}", model.OrderId));
+            parameters.Append(string.Format("&PAYMENT.CODE={0}", SiteKitSettings.System.SolidPaymentPaymentCode));
+            parameters.Append(string.Format("&PRESENTATION.AMOUNT={0}", model.Amount));
+            parameters.Append(string.Format("&PRESENTATION.CURRENCY={0}", model.Currency));
+            parameters.Append(string.Format("&PRESENTATION.USAGE={0}", model.OrderId));
+            parameters.Append(string.Format("&NAME.GIVEN={0}", model.FirstName));
+            parameters.Append(string.Format("&NAME.FAMILY={0}", model.LastName));
+            parameters.Append(string.Format("&NAME.COMPANY={0}", company));
+            parameters.Append(string.Format("&ADDRESS.STREET={0}", model.Address));
+            parameters.Append(string.Format("&ADDRESS.ZIP={0}", model.PostCode));
+            parameters.Append(string.Format("&ADDRESS.CITY={0}", model.City));
+            parameters.Append(string.Format("&ADDRESS.STATE={0}", model.State));
+            parameters.Append(string.Format("&ADDRESS.COUNTRY={0}", model.Country));
+            parameters.Append(string.Format("&CONTACT.EMAIL={0}", model.Email));
+            parameters.Append(string.Format("&CONTACT.PHONE={0}", model.Telephone));
+            parameters.Append(string.Format("&CONTACT.MOBILE={0}", model.Telephone));
+            parameters.Append(string.Format("&CONTACT.IP={0}", model.IpAddress));
+            parameters.Append(string.Format("&CRITERION.AFFILIATE={0}", affiliate));
+            parameters.Append(string.Format("&CRITERION.AGE={0}", age));
+            parameters.Append(string.Format("&CRITERION.KNOWN={0}", knwn));
+            parameters.Append(string.Format("&CRITERION.CUSTOMERID={0}", customerId));
+            parameters.Append(string.Format("&CLEARING.BANKNAME={0}", bankName));
+            parameters.Append(string.Format("&FRONTEND.ENABLED={0}", "true"));
+            parameters.Append(string.Format("&FRONTEND.POPUP={0}", "false"));
+            parameters.Append(string.Format("&FRONTEND.MODE={0}", "DEFAULT"));
+            parameters.Append(string.Format("&FRONTEND.RESPONSE_URL={0}", SiteKitSettings.System.SolidPaymentResponseUrl));
+            parameters.Append(string.Format("&FRONTEND.LANGUAGE={0}", "en"));
+            parameters.Append(string.Format("&FRONTEND.CSS_PATH={0}", cssPath));
+            parameters.Append(string.Format("&FRONTEND.JSCRIPT_PATH={0}", jsPath));
+            parameters.Append(string.Format("&FRONTEND.REDIRECT_TIME={0}", "0"));
+            parameters.Append(string.Format("&FRONTEND.LINK.1.KIND={0}", "TERMS"));
+            parameters.Append(string.Format("&FRONTEND.LINK.1.LINK={0}", termsUrl));
+            parameters.Append(string.Format("&FRONTEND.LINK.1.AREA={0}", "EMBEDDED_CHECKBOX"));
+            parameters.Append(string.Format("&FRONTEND.LINK.1.POPUP_WIDTH={0}", "900"));
+            parameters.Append(string.Format("&FRONTEND.LINK.1.POPUP_HEIGHT={0}", "700"));
+            parameters.Append(string.Format("&FRONTEND.BANNER.1.LINK={0}", bottomLink));
+            parameters.Append(string.Format("&FRONTEND.BANNER.1.AREA={0}", "BOTTOM"));
+            parameters.Append(string.Format("&FRONTEND.BANNER.1.HEIGHT={0}", "100"));
+            parameters.Append(string.Format("&FRONTEND.BANNER.2.LINK={0}", topLink));
+            parameters.Append(string.Format("&FRONTEND.BANNER.2.AREA={0}", "TOP"));
+            parameters.Append(string.Format("&FRONTEND.BANNER.2.HEIGHT={0}", topSize));
+            
+            var utf8 = new UTF8Encoding();
+            var bytesMessage = utf8.GetBytes(parameters.ToString());
+            return utf8.GetString(bytesMessage);
+        }
+        
+        public static string GetForm(PaymentOrder model, string company, string affiliate, string age, string knwn, string customerId, string bankName, string cssPath = "", string jsPath = "", string termsUrl = "", string topLink = "", string topSize = "", string bottomLink = "")
+        {
+            try
+            {
+                model.Id = Guid.NewGuid();
+                model.Date = DateTime.Now;
+
+                var repository = new CMSRepository();
+
+                repository.AddPaymentOrder(model);
+
+                string parameters = GetSendFormParams(model, company, affiliate, age, knwn, customerId, bankName, cssPath, jsPath,termsUrl, topLink, topSize, bottomLink);
+                string url = SiteKitSettings.System.SolidPaymentProductionUrl;
+
+                var response = HttpUtility.UrlDecode(SendHttpRequestForm(url, parameters, "POST"));
+
+                if (response != null)
+                {
+                    var values = response.Split('&');
+
+                    var returnUrl = values.FirstOrDefault(x => x.Contains("FRONTEND.REDIRECT_URL"));
+                    if (returnUrl != null)
+                    {
+                        returnUrl = returnUrl.Replace("FRONTEND.REDIRECT_URL=", "");
+                    }
+                    else
+                    {
+                        returnUrl = response;
+                    }
+                    return returnUrl;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message);
+            }
+            return String.Empty;
+        }
+
+        public static string SendHttpRequestForm(string url, string formParameters, string methodType)
+        {
+            // Create the HTTP POST request and the authentication headers
+            var oWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            oWebRequest.Method = methodType;
+            oWebRequest.ContentType = "application/x-www-form-urlencoded";
+            //oWebRequest.Headers.Add("Authorization: Basic ");
+
+            byte[] encodedBytes = Encoding.UTF8.GetBytes(formParameters);
+            oWebRequest.AllowWriteStreamBuffering = true;
+
+            //Send the request.
+            var requestStream = oWebRequest.GetRequestStream();
+            requestStream.Write(encodedBytes, 0, encodedBytes.Length);
+            requestStream.Close();
+
+            //Handle the response.
+            var oWebResponse = (HttpWebResponse)oWebRequest.GetResponse();
+            var receiveStream = oWebResponse.GetResponseStream();
+
+            var sr = new StreamReader(receiveStream);
+            string resultString = sr.ReadToEnd();
+
+            sr.Close();
+            oWebRequest = null;
+            oWebResponse = null;
+            SaveTempLog(resultString);
+            return resultString;
+        }
+
+        private static void SaveLog(SolidPaymentResult response, string requestString, string error="")
+        {
+            try
+            {
+                var sb = new StringBuilder(requestString);
+
+                sb.AppendLine(string.Format("<br/> <b>Request URL</b>: {0} <br/>", SiteKitSettings.System.SolidPaymentProductionUrl));
+                if (response != null)
+                {
+                    sb.AppendLine("<br/> <b>Response</b>: <br/>");
+                    sb.AppendLine(string.Format("Status: {0} <br/>", response.Status));
+                    sb.AppendLine(string.Format("Code: {0} <br/>", response.Code));
+                    sb.AppendLine(string.Format("TransactionId: {0} <br/>", response.TransactionId));
+                    sb.AppendLine(string.Format("UniqueId: {0} <br/>", response.UniqueId));
+                    sb.AppendLine(string.Format("Ammount: {0} <br/>", response.Ammount));
+                    sb.AppendLine(string.Format("Currency: {0} <br/>", response.Currency));
+                    sb.AppendLine(string.Format("ProcessingStatus: {0} <br/>", response.ProcessingStatus));
+                    sb.AppendLine(string.Format("Error: {0} <br/>", error));
+                    
+                }
+
+                var repository = ObjectFactory.GetInstance<CMSRepository>();
+
+                var item = new Logger
+                    {
+                        Id = Guid.NewGuid(),
+                        Date = DateTime.Now,
+                        ActionType = "SolidPayment",
+                        IsSuccess = response != null && response.IsSuccess,
+                        LoggerTypeId = LoggerTypes.SolidPayment,
+                        ErrorMessage = response != null && response.ProcessingStatus != null ? response.ProcessingStatus : String.Empty,
+                        Details = sb.ToString()
+                    };
+
+                repository.AddLogger(item);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        
+    }
+
+}
+
+
+

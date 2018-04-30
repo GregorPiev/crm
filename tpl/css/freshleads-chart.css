@@ -1,0 +1,45 @@
+.btn-blue{color:#fff;background-color:#0099ff;border-color:#0099ff}
+.btn-blue:hover,.btn-blue:active,.btn-blue:focus{color:#fff;background-color:#0066ff;border-color:#0066ff}
+.ex-tooltip{
+	position: absolute;
+	background: white;
+	border-radius: 3px;
+	border-radius: 3px;
+	padding: 5px;
+	box-shadow: 0 1px 3px black;
+	box-shadow: 0 1px 3px black;
+	border-collapse: separate;
+    display:none;
+    }
+.line .fill { pointer-events: none; }
+   
+#filter_portlet { cursor : pointer}
+   
+.portlet-header.disabled {pointer-events: none; }
+   
+figure {
+    width: 1000px; height: 800px;
+}
+   
+.list-group-item-text.fresh {
+   	color: #3880aa;
+   	font-weight: 600;
+}
+ 
+.list-group-item-text.online {
+   	color: #4da944;
+   	font-weight: 600;
+}
+
+.list-group-item-text.ftd {
+   	color: #f26522;
+   	font-weight: 600;
+}
+
+.modal-large{	
+     width: 1000px;
+     height:1500px;
+     left:50px;
+     outline: none
+}
+

@@ -1,0 +1,253 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    #userSearch-description {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 0px;
+        top: 42px;
+        width: 220px;
+        min-width: 70px;
+        max-width: 220px;
+        background-color: #4e4e4e;
+        color:#fff;
+        font:normal 12px Arial;
+        text-align: left;
+        max-height: 650px;
+        overflow-y: scroll;
+        word-break: break-all;
+    }
+    #userSearch-description .rowSearch{
+        margin: 3px 0;
+        padding: 10px;
+        text-align: left;
+        border-bottom: #fff dotted 1px;
+        width: 100%;
+        cursor: pointer;
+    }
+    #userSearch-description .rowSearch:hover{
+        background-color: #ccc;
+    }
+    #search{z-index: 17;}
+    .cursom-custom{cursor: pointer;}
+    #userSearch-description .fname{
+        background: url('/tpl/img/avatars/ic-contact_38C5D4.svg?b=1.58.0.57')0px 0px no-repeat;
+        background-size: 15px 13px;
+        padding-left: 17px;
+        padding-bottom: 5px;
+    }
+    #userSearch-description .tpAccount{
+        padding-left: 0px;
+        padding-top: 5px;
+        width: 175px;
+    }
+    #userSearch-description .email{
+        margin: 3px 0;
+    }
+    #sidebar-wrapper #searchForm .btn{
+        color:#393939 !important;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="{$GLOBALS.theme_path}js/plugins/jquery-debounce/jquery-debounce-min.js"></script>
+<script src="{$GLOBALS.theme_path}js/{$current_brand.name}/sidebar.js"></script>
+<div id="sidebar-wrapper" class="collapse sidebar-collapse">
+    <div id="search">
+
+        <form id="searchForm">
+            <input class="form-control input-sm" type="text" name="search" id="userSearch" placeholder="Customer Search..." autocomplete="off"/>
+            <span id="search-btn" class="btn disabled"><i class="fa fa-search"></i></span>
+
+            <div id="userSearch-description"></div>
+        </form>
+
+    </div> <!-- #search -->
+    <nav id="sidebar">
+        <ul id="main-nav" class="open-active">
+            {if="$userdata.per_dashboard"}
+            <li {if="$section=='dashboard'"}class="active"{/if}>
+                <a href="/{$brandName}/dashboard/">
+                    <i class="fa fa-dashboard"></i>Dashboard
+                </a>
+            </li>
+            {/if}
+
+            {if="$userdata.per_agent"}
+            <li class="dropdown {if="$section=='agenttools'"}opened active{/if}">
+                <a href="javascript:;">
+                              <i class="fa fa-briefcase"></i>Agent Tools
+                              <span class="caret"></span>
+                          </a>
+
+                          <ul class="sub-nav" {if="$section=='agenttools'"}style="display:block;" {/if}>
+                              <!--     <li>
+                                       <a href="/{$brandName}/agenttools/online">
+                                           <i class="fa fa-laptop"></i>Conversion Online Customers
+                                       </a>
+                                   </li>
+                                   <li>
+                                       <a href="/{$brandName}/agenttools/retonline">
+                                           <i class="fa fa-laptop"></i>Retention Online Customers
+                                       </a>
+                                   </li>  -->
+                              <li>
+                                  <a href="/{$brandName}/agenttools/customer_card">
+                                      <i class="fa fa-user"></i>Customer Card
+                                  </a>
+                              </li>
+                          </ul>
+                      </li>
+
+
+
+                      <li class="dropdown {if="$section=='agentreports'"}opened active{/if}">
+                          <a href="javascript:;">
+                                        <i class="fa fa-briefcase"></i>Agent Reports<span class="caret"></span>
+                                    </a>
+                                    <ul class="sub-nav" {if="$section=='agentreports-'"}style="display:block;" {/if} >
+                                        <li>
+                                            <a href="/{$brandName}/agentreports/portfolio">
+                                                <i class="fa fa-briefcase"></i>
+                                                My Portfolio
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/{$brandName}/agentreports/transactions">
+                                                <i class="fa fa-briefcase"></i>
+                                                My Transaction
+                                            </a>
+                                        </li>
+                                        {if="$userdata.per_retention"}
+                                        <li>
+                                            <a href="/{$brandName}/agentreports/commission">
+                                                <i class="fa fa-briefcase"></i>
+                                                My Commission
+                                            </a>
+                                        </li>
+                                        {/if}
+                                        <!--      {if="$userdata.per_conversion"}
+                                              <li>
+                                                  <a href="/{$brandName}/agentreports/conversioncommission">
+                                                      <i class="fa fa-briefcase"></i>
+                                                      My Conversion Commission
+                                                  </a>
+                                              </li>
+                                              {/if} -->
+
+                                    </ul>
+
+                                </li>
+                                {/if}
+
+                                {if="$userdata.per_reports"}
+
+                                <li class="dropdown {if="$section=='reports'"}opened active{/if}">
+                                    <a href="javascript:;">
+                                                  <i class="fa fa-bar-chart-o"></i>
+                                                  Financial Reports
+                                                  <span class="caret"></span>
+                                              </a>
+
+                                              <ul class="sub-nav" {if="$section=='reports'"}style="display:block;" {/if} >
+                                                  <li>
+                                                      <a href="/{$brandName}/reports/transactions">
+                                                          <i class="fa fa-money"></i>
+                                                          Transactions
+                                                      </a>
+                                                  </li>
+                                                  <li>
+                                                      <a href="/{$brandName}/reports/faileddeposits">
+                                                          <i class="fa fa-exclamation-triangle"></i>
+                                                          Failed Deposits
+                                                      </a>
+                                                  </li>
+                                              </ul>
+                                          </li>
+
+                                          {/if}
+                                          {if="$userdata.per_traffic"}
+                                          <li class="dropdown {if="$section=='traffic'"}opened active{/if}">
+                                              <a href="javascript:;">
+                                                            <i class="fa fa-road"></i>
+                                                            Traffic
+                                                            <span class="caret"></span>
+                                                        </a>
+                                                        <ul class="sub-nav" {if="$section=='traffic'"}style="display:block;" {/if} >
+                                                            <li>
+                                                                <a href="/{$brandName}/traffic/affiliates">
+                                                                    <i class="fa fa-bar-chart-o"></i>
+                                                                    Performance
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="/{$brandName}/traffic/countries">
+                                                                    <i class="fa fa-bar-chart-o"></i>
+                                                                    Countries
+                                                                </a>
+                                                            </li>
+                                                            <!--                {if="$userdata.per_conversionperformance"}
+
+                                                                            <li>
+                                                                                <a href="/{$brandName}/traffic/conversioncommission">
+                                                                                    <i class="fa fa-bar-chart-o"></i>
+                                                                                    Conversion Commission
+                                                                                </a>
+                                                                            </li>
+
+                                                                            {/if}  -->
+                                                            <li>
+                                                                <a href="/{$brandName}/traffic/customersdata">
+                                                                    <i class="fa fa-bar-chart-o"></i>
+                                                                    Customers Data
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+
+                                                    {/if}
+
+                                                    {if="$userdata.per_analytics"}
+
+                                                    <li class="dropdown {if="$section=='analytics'"}opened active{/if}">
+                                                        <a href="javascript:;">
+                                                                      <i class="fa fa-bar-chart-o"></i>
+                                                                      Psych Dreams
+                                                                      <span class="caret"></span>
+                                                                  </a>
+                                                                  <ul class="sub-nav" {if="$section=='analytics'"}style="display:block;" {/if} >
+                                                                      {if="$userdata.per_retentionperformance"}
+
+                                                                      <li>
+                                                                          <a href="/{$brandName}/analytics/commission">
+                                                                              <i class="fa fa-bar-chart-o"></i>
+                                                                              Commissions
+                                                                          </a>
+                                                                      </li>
+                                                                      {/if}
+                                                                      <li>
+                                                                          <a href="/{$brandName}/analytics/realpnl">
+                                                                              <i class="fa fa-bar-chart-o"></i>
+                                                                              Real PNL
+                                                                          </a>
+                                                                      </li>
+                                                                      <li>
+                                                                          <a href="/{$brandName}/analytics/retention">
+                                                                              <i class="fa fa-money"></i>
+                                                                              Customer Shuffling
+                                                                          </a>
+                                                                      </li>
+                                                                      <li>
+                                                                          <a href="/{$brandName}/analytics/tradingstatus">
+                                                                              <i class="fa fa-bar-chart-o"></i>
+                                                                              Trading Status
+                                                                          </a>
+                                                                      </li>
+
+                                                                  </ul>
+                                                              </li>
+                                                              {/if}
+                                                    </ul>
+                                          </nav> <!-- #sidebar -->
+
+                                </div> <!-- /#sidebar-wrapper -->

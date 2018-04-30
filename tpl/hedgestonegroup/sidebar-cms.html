@@ -1,0 +1,54 @@
+	<div id="sidebar-wrapper" class="collapse sidebar-collapse">
+	
+		<div id="search">
+			<form>
+				<input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
+
+				<button type="submit" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
+			</form>		
+		</div> <!-- #search -->
+	
+		<nav id="sidebar">		
+			
+			<ul id="main-nav" class="open-active">			
+
+				<li {if="$section=='translations'"}class="active"{/if}>				
+					<a href="/">
+						<i class="fa fa-dashboard"></i>
+						Dashboard
+					</a>				
+				</li>
+        
+        <li {if="$section=='pages'"}class="active"{/if}>				
+					<a href="/pages/missing">
+						<i class="fa fa-dashboard"></i>
+						Pages
+					</a>				
+				</li>
+        
+        		<li {if="$section=='articles'"}class="active"{/if}>				
+					<a href="/articles/missing">
+						<i class="fa fa-dashboard"></i>
+						Articles
+					</a>				
+				</li>
+        
+        		<li {if="$section=='others'"}class="active"{/if}>				
+					<a href="/others/missing">
+						<i class="fa fa-dashboard"></i>
+						Others
+					</a>				
+				</li>
+
+							
+
+        
+ 
+				
+
+
+			</ul>
+					
+		</nav> <!-- #sidebar -->
+
+	</div> <!-- /#sidebar-wrapper -->

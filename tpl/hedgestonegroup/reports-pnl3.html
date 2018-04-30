@@ -1,0 +1,224 @@
+<div id="content">		
+
+	<div id="content-header">
+		<h1>Reports <!--span style="color:red; border:2px solid red; padding:0 5px; background-color:white;">Temporary non-functional</span--></h1> 
+	</div> <!-- #content-header -->	
+
+
+	<div id="content-container">
+
+		<div class="row">
+
+			<div class="col-md-9">
+
+				<div class="row">
+					<form id="range-form">
+								<div class="col-md-2">
+									<h4>Start Date</h4>    
+									<input class="form-control" type="text" placeholder="Start date" name="dpStart" id="dpStart" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+								</div>
+
+								<div class="col-md-2">
+									<h4>End Date</h4>
+									<input class="form-control" type="text" placeholder="End date" name="dpEnd" id="dpEnd" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+								</div>
+
+								<div class="col-md-2">
+									<h4>Desk</h4>
+									<select id="desk" name="desk" class="form-control">
+										<option value="0" >All</option>
+									</select>
+								</div >
+								
+				                <div class="col-md-2">
+				                  <h4>Affiliate</h4>
+				                  <select id="affiliate" name="affiliate" class="form-control">
+				                    <option value="0" >All</option>
+				                    {loop="affGroups"}
+				                      <option value="{$value.id}" > {$value.gname}</option> 
+				                    {/loop}
+				                  </select>
+				                </div>
+
+				                 <div class="col-md-2">
+				                  <h4>Employee</h4>
+				                  <select id="employee" name="employee" class="form-control">
+				                    <option value="0" >All</option>
+				                    
+				                  </select>
+				                </div>
+				                
+								<div class="col-md-2">
+									<h4>&nbsp;</h4>
+									<a href="#" onclick="getTotalTurnover();return false;" class="btn btn-secondary">Calculate PNL</a>
+								</div>
+								
+<!-- 								<div class="col-md-2">
+									<h4>&nbsp;</h4>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="convertUSD" value="yes" checked> Convert to USD
+									</label>
+								</div> -->
+								
+								<div class="col-md-2">
+									<h4>&nbsp;</h4>
+									<label class="checkbox-inline">
+										<input type="checkbox" name="robot"> Robot Only
+									</label>
+								</div>
+								
+					</form>
+				</div>
+
+
+				<div class="portlet" id="transactions_table_holder">
+
+					<div class="portlet-header" >
+
+						<h3>
+							<i class="fa fa-table"></i>
+							Customers PNL
+						</h3>
+
+					</div> <!-- /.portlet-header -->
+
+					<div class="portlet-content">						
+
+						<div class="table-responsive">
+
+							<table 
+							class="table table-striped table-bordered table-hover table-highlight"  
+							data-display-rows="10"
+							data-info="true"
+							data-search="true"
+							data-length-change="true"
+							data-paginate="true"
+							id="transactions_table"
+							>
+
+						</table>
+					</div> <!-- /.table-responsive -->
+
+
+				</div> <!-- /.portlet-content -->
+
+			</div> <!-- /.portlet -->
+
+		</div> <!-- /.col-md-9 -->
+
+
+		<div class="col-md-3">
+			<!-- <div class="list-group">  
+
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="total_usd">-</h4>
+					<p class="list-group-item-text">Total PNL (USD)</p>
+				</a>
+
+			</div> -->
+
+			<div class="list-group">  
+
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="total_usd_all">-</h4>
+					<p class="list-group-item-text">Total PNL Converted to USD (End date's rates)</p>
+
+				</a>
+
+			</div>
+
+			<div class="list-group">  
+
+				<a href="javascript:;" class="list-group-item">
+					<span class="rate">USD rates</span>
+				</a>
+
+			</div>
+
+
+			<div class="list-group">  
+
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="real_account_balance">-</h4>
+					<p class="list-group-item-text">Real Account Balance (End date's rates)</p>
+
+				</a>
+
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="customer_liability">-</h4>
+					<p class="list-group-item-text">Customer Liability (End date's rates)</p>
+
+				</a>
+
+				<!-- <a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="total_turnover">-</h4>
+					<p class="list-group-item-text">Total Target Turnover (End date's rates)</p>
+
+				</a> -->
+
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="turnover">-</h4>
+					<p class="list-group-item-text">Total Turnover (End date's rates)</p>
+
+				</a>
+
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="current_balance">-</h4>
+					<p class="list-group-item-text">Current Balance (End date's rates)</p>
+
+				</a>
+
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="precent">-</h4>
+					<p class="list-group-item-text">% PNL out of Turnover</p>
+
+				</a>
+				
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="bonus">-</h4>
+					<p class="list-group-item-text">Bonus PNL</p>
+
+				</a>
+				<a href="javascript:;" class="list-group-item"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="bonus_balance">-</h4>
+					<p class="list-group-item-text">Bonus Balance</p>
+
+				</a>
+				<a href="javascript:;" class="list-group-item" style="display: none;"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="total_payouts" >-</h4>
+					
+
+				</a>
+				
+				<a href="javascript:;" class="list-group-item" style="display: none;"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+					<h4 class="list-group-item-heading" id="total_turnovers" >-</h4>
+					
+
+				</a>
+
+
+
+			</div>
+
+			<div class="list-group dynamic-content">
+				
+			</div>
+
+		</div>
+
+
+
+	</div> <!-- /.row -->
+
+</div> <!-- /#content-container -->
+
+</div> <!-- #content -->	
+
+
+
+
+
+
+
+<script src="{$GLOBALS.theme_path}js/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="{$GLOBALS.theme_path}js/reports-pnl3.js"></script>

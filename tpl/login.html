@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+
+    <title>Login - Canvas Admin</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="">
+	<meta name="author" content="" />
+
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800" type="text/css">
+	<link rel="stylesheet" href="{$GLOBALS.theme_path}css/font-awesome.min.css" type="text/css" />		
+	<link rel="stylesheet" href="{$GLOBALS.theme_path}css/bootstrap.min.css" type="text/css" />	
+	<link rel="stylesheet" href="{$GLOBALS.theme_path}js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.css" type="text/css" />	
+	
+	<link rel="stylesheet" href="{$GLOBALS.theme_path}css/App.css" type="text/css" />
+	<link rel="stylesheet" href="{$GLOBALS.theme_path}css/Login.css" type="text/css" />
+
+	<link rel="stylesheet" href="{$GLOBALS.theme_path}css/custom.css" type="text/css" />
+        <style>
+            [id*='error']{       
+                font-size: 16px;
+                font-style: oblique;
+                color: red;
+                text-align: center;
+            }
+            .red{
+                border:#f00 solid 1px;
+            }
+     
+            .nondisplay{display: none;}
+        </style>
+	
+</head>
+
+<body>
+
+<div id="login-container">
+
+	<div id="logo">
+		<a href="/">
+			<img src="{$GLOBALS.theme_path}img/logos/{$GLOBALS.multi_system}.png" class="img-circle" style="width:100%; height:100%;"  alt="Logo" />
+		</a>
+	</div>
+
+	<div id="login">
+
+		<h3>Welcome to {$GLOBALS.multi_system}</h3>
+
+		<h5>Please sign in to get access.</h5>
+
+		<form id="login-form" class="form" method="post" novalidate="novalidate">
+
+			<div class="form-group">
+				<label for="login-username">Username</label>
+				<input type="text" class="form-control" id="login-username" name="login-username" placeholder="Username" required="required">
+			</div>
+
+			<div class="form-group">
+				<label for="login-password">Password</label>
+				<input type="password" class="form-control" id="login-password" name="login-password" placeholder="Password" required="required">
+			</div>
+			
+			<img id="siimage" style="border: 1px solid #000; width: 350px; height: 75px;" src="../securimage_show.php?sid=d3aeb00ef8fc84d9958ec61af648a38a" alt="CAPTCHA Image" align="left">
+	 	    <input type="text" name="ct_captcha" value="" id="ct_captcha" style="margin-top: 30px;margin-bottom: 30px;width: 265px; height: 40px;border-radius: 5px;"/>
+			<div id="refresh" style="width: 75px;border: 0;background-color: transparent;padding: 20px; float: right;margin-top: 12px;"><i class="fa fa-refresh" style="color: #dd301b; font-size: 33px; font-weight: 900;"></i></div>		
+			
+
+			<div class="form-group">
+				<button type="submit" id="login-btn" class="btn btn-primary btn-block">Signin &nbsp; <i class="fa fa-play-circle"></i></button>
+				
+			</div>
+
+					<a href="#" id="forgotPass" onclick="showResetPassword();" style="margin-left: 82px;font-size: 20px;color: #dd301b;text-decoration: underline;">Forgot your password</a>
+
+		</form>
+
+		<form id="resetpass-form" class="form" method="post" novalidate="novalidate" style="display: none;">								
+				<div class="form-group">					
+                                                                                <input type="text" class="form-control" id="email" name="username" maxlength="50" placeholder="Username" required>
+				</div>
+				<div class="change-group">	
+					<button type="submit" id="resetPass" class="btn btn-primary btn-block" >Reset Password</button>	
+				</div>
+		</form>
+
+
+		
+
+	</div> <!-- /#login -->
+
+
+
+</div> <!-- /#login-container -->
+
+<script src="{$GLOBALS.theme_path}js/libs/jquery-1.9.1.min.js"></script>
+<script src="{$GLOBALS.theme_path}js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="{$GLOBALS.theme_path}js/libs/bootstrap.min.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/bootbox/bootbox.min.js"></script>
+
+<script src="{$GLOBALS.theme_path}js/parsley/parsley.js"> </script>
+
+<script src="{$GLOBALS.theme_path}js/api.js"></script>
+<script src="{$GLOBALS.theme_path}js/App.js"></script>
+
+<script src="{$GLOBALS.theme_path}js/Login.js"></script>
+<script type="text/javascript">
+	function showResetPassword(){
+		$('#resetpass-form').show();
+		$('#forgotPass').hide();
+	}
+</script>
+
+<script type="text/javascript">
+	function showResetPassword(){
+		$('#resetpass-form').show();
+		$('#forgotPass').hide();
+	}
+</script>
+
+</body>
+</html>

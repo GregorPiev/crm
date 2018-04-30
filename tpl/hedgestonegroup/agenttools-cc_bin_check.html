@@ -1,0 +1,51 @@
+<style>
+#binData{	
+	display:none;
+	background-image: linear-gradient(to bottom, #fafafa 0%, #ebebeb 100%);
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    float: left;
+    padding: 20px;
+    width: 100%;
+    font-size:18px;
+    line-height:2;
+}
+
+
+</style>
+<div id="content">
+
+    <div id="content-header">
+        <h1>Credit Card Deposit</h1>
+    </div>
+    <!-- #content-header -->
+
+
+    <div id="content-container">
+
+        <form action="" name="binCheck" method="POST" class="parameters-form" id="binCheck">
+       <div class="row">
+				<div class="col-md-offset-3 col-md-6">
+		                <span class="col-md-2 text-right">CC Number:</span>
+		                <div class="col-md-8"><input class="form-control" id="cc_number" name="cc_number" value="" placeholder="CC Number Validation" type="cc_number" required="" data-validation-required-message="This is required" aria-invalid="false"></div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-offset-5 col-md-2 text-center"><input type="submit" id="tdsubmit" value="Check BIN" class="btn btn-secondary"></div>
+			</div>
+        </form>
+        
+        <div id="binData">
+        	
+        </div>
+        
+
+
+</div> <!-- /#content-container -->
+
+
+</div> <!-- #content -->
+<script src="{$GLOBALS.theme_path}js/api.js"></script>
+<script src="{$GLOBALS.theme_path}js/binCheck.js"></script>
+

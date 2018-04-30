@@ -1,0 +1,640 @@
+<script>
+   
+	$('link[href="{$GLOBALS.theme_path}css/bootstrap.min.css"]').attr("href","{$GLOBALS.theme_path}css/bootstrap.3.3.5.min.css");
+</script>
+
+<style>
+    .table-highlight>thead>tr>td{color:#fff} 
+    
+	.btn-week{color:#fff;background-color:#0099ff;border-color:#0099ff}
+	.btn-week:hover,.btn-week:active,.btn-week:focus{color:#fff;background-color:#0066ff;border-color:#0066ff}
+	.btn-green{color:#fff;background-color:#4BAD21;border-color:#4BAD21}
+	.btn-green:hover,.btn-green:active,.btn-green:focus{color:#fff;background-color:#37990D;border-color:#37990D}
+	
+	.portlet-header.shift.disabled{
+		pointer-events:none;
+     }
+	.modal-xlarge{	
+     width: 1500px;
+     height:1500px;
+     left:50px;
+     outline: none
+	}
+	.modal-xxlarge{
+		
+     width: 1800px;
+     height:1500px;
+     left:20px;
+     outline: none
+	}
+	.modal-header{
+	 background-color: #444;
+     color: #fff;
+     font-weight: 600;
+     border: 1px solid #3a3a3a;	
+	}
+	body.modal-scroll{ 
+    overflow-y:hidden;
+    }
+	.modal{ 
+    overflow-y:auto;
+    }
+	#chart_div {			
+	width		: 80%;
+	height		: 500px;
+	font-size	: 11px;
+    }
+    #sales_chart_div {
+ 				
+	width		   : 100%;
+	height	       : 500px;
+	font-size	   : 11px;
+    }
+    .amcharts-legend-div {
+    overflow-y: auto!important;
+    max-height: 500px;
+    }
+    #allSales_bootbox .list-group-item.disabled {
+     background-color: #fff;
+     pointer-events:none;
+     filter:alpha(opacity=65);
+     -webkit-box-shadow:none;
+     box-shadow:none;
+     opacity:.65 	
+    	
+    }
+    
+</style>
+
+<div id="content">		
+
+	<div id="content-header">
+		<h1>Conversion - Commission Calculation</h1>
+	</div> <!-- #content-header -->	
+
+
+	<div id="content-container">
+
+ 
+
+      <div class="row">
+
+		
+
+			<div class="col-md-12">
+
+				<div class="row">
+					<form id="range-form">
+
+						<div class="portlet">
+
+							<div class="col-md-1">
+								<h4>Month</h4>
+								<input class="form-control" type="text" placeholder="Month" name="dpMonth" id="dpMonth" data-date-format="yyyy-mm" data-date-autoclose="true">
+							</div>
+							<div class="col-md-1">
+								<h4>Range</h4>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle range" data-toggle="dropdown">
+										Range <span class="caret"></span>
+									</button>
+								    <ul class="dropdown-menu" role="menu">
+										{loop="ranges"}
+										<li>
+											<a href="javascript:selectRange('{$value.value}');">
+												{$value.text}
+											</a>
+										</li>
+										{/loop}
+
+									</ul>
+								</div>
+
+
+
+							</div>
+                     </div>
+							
+
+							<div class="col-md-2">
+							   <h4>Desk</h4>
+							     <select id="desk" name="desk"  class="form-control">
+									<option value="0" >All</option>
+									
+								</select> 
+
+							</div >
+
+                            <div class="col-md-2">
+
+                            <h4>Employee</h4>
+                            <select id="employee" name="employee" class="form-control">
+                                               <option value="0" >All</option>
+                                     </select>   
+							
+
+						</div>
+						<div class="col-md-2">
+							<h4>Campaigns</h4>
+							<select class="form-control" multiple="multiple" id="campaign" name="campaign[]">
+								
+							</select>
+							
+						</div>
+                        <div class="col-md-1">
+								<h4>&nbsp;</h4>
+								<div class="btn-group">
+									
+									<a href="" onclick="event.preventDefault(); getConversionWeeks(true); return false;"  class="btn btn-secondary disabled" id="set" >Set Weeks</a>
+								</div>
+							</div>
+						<div class="col-md-1">
+								<h4>&nbsp;</h4>
+								<div class="btn-group">
+									
+									<a href="" onclick="event.preventDefault(); getShiftManagersModal(); return false;"  class="btn btn-green disabled" id="button_managers">Set Managers</a>
+								</div>	 
+						</div>  
+						<div class="col-md-2">
+								<h4>&nbsp;</h4>
+								<div class="btn-group">
+									
+									<a href="" onclick="event.preventDefault(); setWeeklyBonus(); return false;"  class="btn btn-week disabled" id="button_bonus" >Set Weekly Bonus</a>
+								</div>
+							</div>
+						
+					   	  	 
+                      <div class="col-md-7">
+                      </div>
+                      <div class="col-md-1">
+                      	 <h4>&nbsp;</h4>		
+					     <a href="" onclick="event.preventDefault(); summary.getModal(); return false;"  class="btn btn-secondary">Get Summary</a>	
+                      </div>
+                      <div class="col-md-1">
+                      	 <h4>&nbsp;</h4>		
+					     <a href="" onclick="event.preventDefault(); getCharts(); return false;"  class="btn btn-secondary disabled" id="button_chart" >Get Charts</a>	
+                      </div>
+                      <div class="col-md-1">
+                      	 <h4>&nbsp;</h4>
+						 <a href="" onclick="event.preventDefault(); allSales.getModal(); return false;"  class="btn btn-secondary disabled" id="button_all" >Get All Sales</a>		
+					  </div>  
+
+					</form>
+				</div>
+</div> <!-- /.col-md-12 -->
+       
+             	 
+             	
+             
+						
+						<div class="col-md-8">	
+						<div class="portlet">
+							<div class="portlet-header">
+							  <h3><i class="fa fa-table"></i>
+							   Duplicate Record
+						      </h3>
+						    </div>
+						   <div class="portlet-content">
+						   	 <form id="duplicate-form">
+						   	  <div class="col-md-3">
+						   	    <h4>Transaction ID</h4>	
+						   	  	<input class="form-control" id="transactionId" name="transactionId" placeholder="Transaction Id" onfocus="this.blur();"/>
+						   	  </div>
+						   	  <div class="col-md-3">
+						   	    <h4>Transaction Employee</h4>	
+						   	  	<input class="form-control" id="transactionEmployee" name="transactionEmployee" placeholder="Transaction Employee" onfocus="this.blur();"/>
+						   	  	<input type="hidden" class="form-control" id="transactionEmployeeId" name="transactionEmployeeId"/>
+						   	  </div>
+						   	  <div class="col-md-3">
+						   	    <h4>Type</h4>	
+						   	  	<input class="form-control" id="type" name="type" placeholder="Type" onfocus="this.blur();"/>
+						   	  </div>
+						   	   <div class="col-md-3">
+						   	   	<h4>&nbsp;</h4>	
+						   	  	<a href="" class="btn btn-secondary" onclick="event.preventDefault(); changeDuplicate(); return false;">Change</a>
+						   	  </div>			
+						   	 </form>
+						   </div>  
+						</div>
+						</div>
+					<!--	<div class="col-md-1"></div> -->	
+							<div class="list-group col-md-2">  
+				
+								<a href="javascript:;" class="list-group-item shift"><h3 class="pull-right"><i class="fa fa-bar-chart"></i></h3>
+									<h4 class="list-group-item-heading" id="today_ftds">-</h4>
+									<p class="list-group-item-text"><span></span> Today FTDs</p>
+				
+								</a>
+						<!--		<a href="javascript:;" class="list-group-item "><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+									<h4 class="list-group-item-heading" id="average_ftds">-</h4>
+									<p class="list-group-item-text">Average FTDs</p>
+				
+						</a> -->
+						       <a href="javascript:;" class="list-group-item shift"><h3 class="pull-right"><i class="fa fa-bar-chart"></i></h3>
+									<h4 class="list-group-item-heading" id="total_ftds">-</h4>
+									<p class="list-group-item-text"><span></span> Total FTDs</p>
+				
+								</a> 
+							</div>	
+							<div class="list-group col-md-2">  
+				
+								<a href="javascript:;" class="list-group-item shift"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+									<h4 class="list-group-item-heading" id="today_deposits">-</h4>
+									<p class="list-group-item-text"><span></span> Today Deposits</p>
+				
+								</a>
+								<a href="javascript:;" class="list-group-item shift"><h3 class="pull-right"><i class="fa fa-dollar"></i></h3>
+									<h4 class="list-group-item-heading" id="total_deposits">-</h4>
+									<p class="list-group-item-text"><span></span> Total Deposits</p>
+				
+								</a>
+							</div>	
+						
+				<div class="col-md-12">
+             		<h5></h5>
+             	</div>			
+                <div class="col-md-8">
+				<div class=" portlet" id="transactions_table_holder">
+
+					<div class="portlet-header shift" >
+
+						<h3>
+							<i class="fa fa-table"></i>
+							<span>Transactions</span>
+						</h3>
+
+					</div> <!-- /.portlet-header -->
+
+					<div class="portlet-content">						
+
+                        
+
+						<div class="table-responsive">
+                            
+							<table 
+							class="table table-striped table-bordered table-hover table-highlight"  
+							data-display-rows="10"
+							data-info="true"
+							data-search="true"
+							data-length-change="true"
+							data-paginate="true"
+							id="transactions_table"
+							>
+
+						</table>
+					</div> <!-- /.table-responsive -->
+
+
+				</div> <!-- /.portlet-content -->
+
+			</div> <!-- /.portlet -->
+
+          </div>
+
+        
+         <div class="col-md-4">
+				<div class=" portlet" id="commission_table_holder">
+
+					<div class="portlet-header" >
+
+						<h3>
+							<i class="fa fa-table"></i>
+							Commissions
+						</h3>
+
+					</div> <!-- /.portlet-header -->
+
+					<div class="portlet-content">						
+
+
+
+						<div class="table-responsive">
+
+							<table 
+							class=" table table-striped table-bordered table-hover table-highlight "
+							id="commission_table"  
+							>
+                            <thead>
+                        <tr>
+                            <td colspan="4"><h4>Total Deposits</h4></td>
+                           
+                           
+                            <td class="col-md-2"><h5  id="total_deposits_commission">$ 0</h5></td>
+                        </tr>
+                            </thead>
+                            
+                        <tr>
+                            <td colspan="5"><h6></h6></td>
+                            
+                        </tr>    
+                            
+                        
+                         <thead>
+                        
+                            <td>Bonus Calculation <span id="regular_shift_text"></span></td>
+                            <td>Quantity</td>
+                            <td>Bonus ILS</td>
+                            <td>Total Bonus ILS</td>
+                            <td style="background-color:#f9f9f9"></td>
+                        </thead>
+                        <tbody>
+                          <tr>
+                           	<td>Flat Bonus - $20 per FTD</td>
+                            <td id="flat">0</td>
+                            <td>&#8362; 79</td>
+                            <td id="flat_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 3 daily FTDs</td>
+                            <td id="daily_3">0</td>
+                            <td>&#8362; 100</td>
+                            <td id="daily_3_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 4-5 daily FTDs</td>
+                            <td id="daily_4">0</td>
+                            <td>&#8362; 200</td>
+                            <td id="daily_4_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 6-7 daily FTDs</td>
+                            <td id="daily_6">0</td>
+                            <td>&#8362; 500</td>
+                            <td id="daily_6_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                           <tr>
+                           	<td>Extra Bonus for 8-9 daily FTDs</td>
+                            <td id="daily_8">0</td>
+                            <td>&#8362; 1000</td>
+                            <td id="daily_8_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                           <tr>
+                           	<td>Extra Bonus for <span id="span_daily_10">10-11</span> daily FTDs</td>
+                            <td id="daily_10">0</td>
+                            <td>&#8362; 2000</td>
+                            <td id="daily_10_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr class="new_daily_extra">
+                           	<td>Extra Bonus for 12-14 daily FTDs</td>
+                            <td id="daily_12">0</td>
+                            <td>&#8362; 3000</td>
+                            <td id="daily_12_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr class="new_daily_extra">
+                           	<td>Extra Bonus for 15+ daily FTDs</td>
+                            <td id="daily_15">0</td>
+                            <td>&#8362; 4000</td>
+                            <td id="daily_15_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                        </tbody>
+                        <thead>
+                        	<td colspan="4">Total Bonus</td>
+                            
+                        	<td id="daily_total">&#8362; 0</td>
+                        </thead>
+                        <tbody class="manager" style="display:none">
+                        <tr>
+                            <td colspan="5"><h6></h6></td>
+                            
+                        </tr>    
+                        </tbody>    
+                        
+                   <!--      <thead class="manager" style="display:none">
+                        
+                            <td>Bonus Calculation - Manager Shift</td>
+                            <td>Quantity</td>
+                            <td>Bonus ILS</td>
+                            <td>Total Bonus ILS</td>
+                            <td style="background-color:#f9f9f9"></td>
+                        </thead>
+                        <tbody class="manager" style="display:none">
+                          <tr>
+                           	<td>Flat Bonus - $20 per FTD</td>
+                            <td id="manager_flat">0</td>
+                            <td>&#8362; 40</td>
+                            <td id="manager_flat_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 3 daily FTDs</td>
+                            <td id="manager_daily_3">0</td>
+                            <td>&#8362; 50</td>
+                            <td id="manager_daily_3_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 4-5 daily FTDs</td>
+                            <td id="manager_daily_4">0</td>
+                            <td>&#8362; 100</td>
+                            <td id="manager_daily_4_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 6-7 daily FTDs</td>
+                            <td id="manager_daily_6">0</td>
+                            <td>&#8362; 250</td>
+                            <td id="manager_daily_6_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                           <tr>
+                           	<td>Extra Bonus for 8-9 daily FTDs</td>
+                            <td id="manager_daily_8">0</td>
+                            <td>&#8362; 500</td>
+                            <td id="manager_daily_8_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                           <tr>
+                           	<td>Extra Bonus for 10+ daily FTDs</td>
+                            <td id="manager_daily_10">0</td>
+                            <td>&#8362; 1000</td>
+                            <td id="manager_daily_10_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                        </tbody>
+                        <thead class="manager" style="display:none">
+                        	<td colspan="4">Total Bonus</td>
+                            
+                        	<td id="manager_daily_total">&#8362; 0</td>
+                        </thead>
+                       
+                        <tbody class="manager" style="display:none">
+                        <tr>
+                            <td colspan="5"><h6></h6></td>
+                            
+                        </tr>    
+                        </tbody>    -->
+                        
+                         <thead class="manager" style="display:none">
+                        
+                            <td>Bonus Calculation - Manager Shift</td>
+                            <td>Quantity</td>
+                            <td>Bonus ILS</td>
+                            <td>Total Bonus ILS</td>
+                            <td style="background-color:#f9f9f9"></td>
+                        </thead>
+                        <tbody class="manager" style="display:none">
+                          <tr>
+                           	<td>Extra Bonus for 0-15 daily FTDs</td>
+                            <td id="manager_all_daily_0">0</td>
+                            <td>&#8362; 0</td>
+                            <td id="manager_all_daily_0_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 16-35 daily FTDs</td>
+                            <td id="manager_all_daily_16">0</td>
+                            <td>&#8362; 300</td>
+                            <td id="manager_all_daily_16_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 36-40 daily FTDs</td>
+                            <td id="manager_all_daily_36">0</td>
+                            <td>&#8362; 600</td>
+                            <td id="manager_all_daily_36_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                          <tr>
+                           	<td>Extra Bonus for 41-45 daily FTDs</td>
+                            <td id="manager_all_daily_41">0</td>
+                            <td>&#8362; 900</td>
+                            <td id="manager_all_daily_41_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                           <tr>
+                           	<td>Extra Bonus for 46-60 daily FTDs</td>
+                            <td id="manager_all_daily_46">0</td>
+                            <td>&#8362; 1500</td>
+                            <td id="manager_all_daily_46_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                           <tr>
+                           	<td>Extra Bonus for 61+ daily FTDs</td>
+                            <td id="manager_all_daily_61">0</td>
+                            <td>&#8362; 3000</td>
+                            <td id="manager_all_daily_61_bonus">&#8362; 0</td>
+                            <td></td>	
+                          </tr>
+                        </tbody>
+                        <thead class="manager" style="display:none">
+                        	<td colspan="4">Total Bonus</td>
+                            
+                        	<td id="manager_all_daily_total">&#8362; 0</td>
+                        </thead>
+                        <tr>
+                            <td colspan="5"><h6></h6></td>
+                            
+                        </tr>  
+                         <thead>
+                        	<td colspan="4">Weekly Bonus<a href="" class="btn btn-secondary btn-xs pull-right" onclick="event.preventDefault(); viewWeeklyBonus(); return false;">View</a></td>
+                        	<td id="weekly_bonus">&#8362; 0</td>
+                        </thead>
+                        <tr>
+                            <td colspan="5"><h6></h6></td>
+                            
+                        </tr>  
+                        <thead>
+                        	  <td colspan="4">Weekly Goals</td>
+                        	  <td style="background-color:#f9f9f9"></td>
+                        </thead>
+                        <thead>
+                        	  <td>Goal - Deposits(#)</td>
+                        	  <td>Week</td>
+                        	  <td>Actual Weekly Deposits</td>	
+                        	  <td>Total</td>
+                        	  <td style="background-color:#f9f9f9"></td>
+                        	
+                        </thead>
+                        <tr>
+                           	<td><a href="" id="add_target_1" onclick="event.preventDefault(); addTarget(1);return false;" class="btn btn-xs btn-secondary pull-right">ADD</a><span id="target_1">0</span></td>
+                            <td>1</td>
+                            <td id="total_week_1">0</td>
+                            <td id="bonus_week_1">&#8362; 0</td>
+                            <td></td>	
+                        </tr>
+                        <tr>
+                           	<td><a href="" id="add_target_2" onclick="event.preventDefault(); addTarget(2);return false;" class="btn btn-xs btn-secondary pull-right">ADD</a><span id="target_2">0</span></td>
+                            <td>2</td>
+                            <td id="total_week_2">0</td>
+                            <td id="bonus_week_2">&#8362; 0</td>
+                            <td></td>	
+                        </tr>
+                        <tr>
+                           	<td><a href="" id="add_target_3" onclick="event.preventDefault(); addTarget(3);return false;" class="btn btn-xs btn-secondary pull-right">ADD</a><span  id="target_3">0</span></td>
+                            <td>3</td>
+                            <td id="total_week_3">0</td>
+                            <td id="bonus_week_3">&#8362; 0</td>
+                            <td></td>	
+                        </tr>
+                        <tr>
+                           	<td><a href="" id="add_target_4" onclick="event.preventDefault(); addTarget(4);return false;" class="btn btn-xs btn-secondary pull-right">ADD</a><span  id="target_4">0</span></td>
+                            <td>4</td>
+                            <td id="total_week_4">0</td>
+                            <td id="bonus_week_4">&#8362; 0</td>
+                            <td></td>	
+                        </tr>
+                        <thead>
+                        	<td colspan="4">Total Bonus</td>
+                        	<td id="bonus_week">&#8362; 0</td>
+                        </thead>
+                         <tr>
+                            <td colspan="5"><h6></h6></td>
+                            
+                        </tr>  
+                         <thead>
+                        	<td colspan="4">Extra Bonus<a href="" class="btn btn-secondary btn-xs pull-right" onclick="event.preventDefault(); viewExtraBonus(); return false;">View</a></td>
+                        	<td id="extra_bonus">&#8362; 0</td>
+                        </thead>
+                        <tr>
+                            <td colspan="5"><h6></h6></td>
+                            
+                        </tr>  
+                        <thead>
+                        	<td colspan="4"><h4>Total Bonus</h4></td>
+                        	<td><h4 id="total_bonus">&#8362; 0</h4></td>
+                        </thead>
+						</table>
+					</div> <!-- /.table-responsive -->
+					
+					
+
+
+				</div> <!-- /.portlet-content -->
+
+			</div> <!-- /.portlet -->
+
+          </div>
+
+
+
+        
+			
+
+</div>
+
+		
+		
+ 
+</div> <!-- /#content-container -->
+
+
+</div> <!-- #content -->	
+
+<script src="{$GLOBALS.theme_path}js/libs/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/bootbox/bootbox.min.js"></script>
+<script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="http://www.amcharts.com/lib/3/pie.js"></script>
+<script src="{$GLOBALS.theme_path}js/traffic-conversioncommission.js"></script>
+<script src="{$GLOBALS.theme_path}js/traffic-conversionsummary.js"></script>
+
+
+

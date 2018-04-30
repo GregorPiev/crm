@@ -1,0 +1,12 @@
+ul{
+	float:left;
+	width:10%;
+	}
+iframe{
+	float:left;
+	height:720px;
+	width:100%;
+	border:none;
+	}
+
+	html { overflow: hidden; }

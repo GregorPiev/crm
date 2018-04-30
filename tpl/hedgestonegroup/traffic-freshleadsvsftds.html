@@ -1,0 +1,152 @@
+<script>
+   
+	$('link[href="{$GLOBALS.theme_path}css/bootstrap.min.css"]').attr("href","{$GLOBALS.theme_path}css/bootstrap.3.3.5.min.css");
+	
+</script> 
+<link rel="stylesheet" type="text/css" href="{$GLOBALS.theme_path}css/daterangepicker.css" />
+<link href="{$GLOBALS.theme_path}css/xcharts.min.css" rel="stylesheet">
+<link href="{$GLOBALS.theme_path}css/freshleads-chart.css" rel="stylesheet">
+
+
+<div id="content">		
+
+	<div id="content-header">
+		<h1>Fresh Leads vs FTDs</h1>
+	</div> <!-- #content-header -->	
+
+
+	<div id="content-container">
+
+ 
+
+      <div class="row">
+
+		
+            <div class="row col-md-12">
+              <form id="range-form">
+              	<div class="col-md-2">
+                <div class="btn-group" id="reportrange">
+           	      <h4>Range</h4>
+				  <button type="button" style="border-radius: 4px; width:120px"   id="range_button" class="btn btn-secondary dropdown-toggle range" data-toggle="dropdown">
+				  <span id="range_label"></span>&nbsp;<span class="caret"></span>
+				  </button> 
+                </div>
+                </div>			
+                <div class="col-md-2">
+								<h4>Start Date</h4>    
+								<input class="form-control" type="text" placeholder="Start date" name="dpStart" id="dpStart" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+
+			    </div>
+			    <div class="col-md-2">
+								<h4>End Date</h4>    
+								<input class="form-control" type="text" placeholder="End date" name="dpEnd" id="dpEnd" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+
+			    </div>
+			    <div class="col-md-2">
+			    	<h4>Desk</h4>
+			    	<select class="form-control" id="desk" name="desk">
+					   <option value="0" >All</option>
+			    	</select>
+			    </div>
+			    
+			   
+			  </form>
+			   <div class="col-md-1">
+			    	<h4>&nbsp;</h4>
+			    	<a href="" class="btn btn-blue" id="leads_button">Get Chart</a>
+			    </div>				
+            </div> <!-- col-md-12 -->
+            
+            <br /><br />
+            <div class="col-md-12">
+            <div class="portlet"> 
+              <div class="portlet-header disabled" id="filter_portlet">
+             	<h3>
+             	<i class="fa fa-bar-chart-o"></i>	
+				Filters
+				</h3>
+              </div>
+            <div class="portlet-content" style="display:none; height:150px;">
+             		
+            <div class="col-md-2">
+	              <h4>Employee</h4>
+	              <select id="employee" name="employee" class="form-control">
+	                <option value="0" >All</option>
+	              </select>
+	        </div>
+	        <div class="col-md-3">
+			      <h4>Campaigns</h4>
+				  <select class="form-control" multiple="multiple" id="campaign" name="campaign[]">
+		    	  </select>
+							
+			</div>
+			<div class="col-md-3">
+			      <h4>Countries</h4>
+				  <select class="form-control" multiple="multiple" id="country" name="country[]">
+		    	  </select>
+							
+			</div>
+			<div class="col-md-1">
+			      <h4>&nbsp;</h4>
+				  <a href="" class="btn btn-blue" onclick="event.preventDefault(); getTableModal(); return false;">Get Table</a>  
+							
+			</div>		
+            </div> 		
+            </div>
+            </div>
+           <div class="col-md-12">&nbsp;</div>	
+            <div class="col-md-12">
+            <div class="portlet" id="chart_holder"> 
+              <div class="portlet-header">
+             	<h3>
+             	<i class="fa fa-bar-chart-o"></i>	
+				Fresh Leads vs FTDs
+				</h3>
+              </div>
+             <div class="portlet-content">
+             	<a href="" class="btn btn-blue chart_type_button disabled" onclick="event.preventDefault(); drawChart('Cumulative'); return false;">Cumulative</a>&nbsp;
+                <a href="" class="btn btn-blue chart_type_button disabled" onclick="event.preventDefault(); drawChart('Hourly'); return false;"><span id="daily_button">Hourly</span></a>
+                <br />
+            <!--    <div class="col-md-12">&nbsp;</div> 	
+                <div class="col-md-8">
+               	<h3 id="chart_title" style="text-align: center;"></h3>
+              	<figure id="chart"></figure>
+               </div>
+               <div class="list-group col-md-2">	
+					<a href="javascript:;" class="list-group-item">
+					<h3 class="pull-right"><i class="fa fa-bar-chart-o"></i></h3>
+					<h4 class="list-group-item-heading fresh" id="total_fresh_leads">-</h4>
+					<h4 class="list-group-item-text fresh" >Total Fresh Leads</h4>
+					</a>
+					<a href="javascript:;" class="list-group-item">
+					<h3 class="pull-right"><i class="fa fa-bar-chart-o"></i></h3>
+					<h4 class="list-group-item-heading ftd" id="total_ftds">-</h4>
+					<h4 class="list-group-item-text ftd" >Total FTDs</h4>
+					</a>
+			   </div> -->
+             </div>	 
+           </div>
+           </div> 
+      </div> <!-- row -->
+           
+
+        
+			
+
+
+
+		
+		
+ 
+</div> <!-- /#content-container -->
+
+
+</div> <!-- #content -->
+
+<script src="{$GLOBALS.theme_path}js/libs/jquery-ui-1.10.4.custom.min.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/xchart/d3.v2.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/xchart/xcharts.min.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/daterangepicker/moment.min.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="{$GLOBALS.theme_path}js/traffic-freshleadsvsftds.js"></script>
+

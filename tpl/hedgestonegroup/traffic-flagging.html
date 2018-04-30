@@ -1,0 +1,144 @@
+ <style>
+    
+    ul#sortable li { 
+        position: relative; 
+        -webkit-transition: height 200ms, padding 200ms, margin 200ms;
+        -o-transition: height 200ms, padding 200ms, margin 200ms;
+        transition: height 200ms, padding 200ms, margin 200ms;
+        overflow: hidden;
+    }
+    ul#sortable a { 
+        position: absolute;
+        left:15px; 
+        font-size:20px; 
+        color:#444; 
+        opacity:0;
+        -webkit-transition: opacity 200ms;
+        -o-transition: opacity 200ms;
+        transition: opacity 200ms;
+    }
+    ul#sortable a.show {
+        left:45px;
+    }
+
+    ul#sortable a.message {
+        left:auto;
+        right:15px;
+        opacity:1;
+    }
+    
+    ul#sortable li:hover a { 
+        opacity:1; 
+    }
+
+    .results {
+        position: fixed;
+        right: 50%;
+        bottom: 10px;
+        height: 40px;
+        width: 150px;
+        margin-right: -50px;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNiOAMAANUAz5n+TlUAAAAASUVORK5CYII=) repeat 0 0 transparent;
+        line-height: 20px;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        padding: 10px;
+        display:none;
+    }
+
+    textarea {
+        min-height:100px;
+    }
+
+    .cost { height: 34px; line-height: 30px; font-size: 14px; }
+
+        .m-t-10 {
+            margin-top:20px;
+        }
+
+
+ </style>
+
+<div id="content">
+    <div class="results"></div>
+    <div id="content-header">
+        <h1>Reports</h1>
+
+    </div>
+    <!-- #content-header -->
+
+
+    <div id="content-container">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="row">
+                    <form id="range-form">
+                        <div class="portlet">
+
+                            <div class="col-md-3">
+                                <h4>Affiliate</h4>
+                                <select id="affiliate" name="affiliate" class="form-control">
+                                    <option value="0">All</option>
+
+                                   <!--  {loop="affGroups"}
+                                    <option value="{$value.id}">{$value.gname}</option>
+                                    {/loop} -->
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </form>
+                </div>
+
+
+                <div class="portlet" id="transactions_table_holder">
+
+                    <div class="portlet-header">
+
+                        <h3>
+							<i class="fa fa-group"></i>
+							Affiliate
+						</h3>
+
+                    </div>
+                    <!-- /.portlet-header -->
+
+                    <div class="portlet-content">
+                        
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.portlet-content -->
+                </div>
+                <!-- /.portlet -->
+
+
+
+            </div>
+            <!-- /.col-md-4 -->
+            <div class="col-md-8">
+                <h4>Top Priority</h4>
+                <div class="well">
+                    <ul id="sortable" style="margin:0; padding:0;">
+                        <!-- <li class="btn btn-default btn-lg btn-block">Aff 1</li>
+                        <li class="btn btn-default btn-lg btn-block">Aff 2</li>
+                        <li class="btn btn-default btn-lg btn-block">Aff 3</li>
+                        <li class="btn btn-default btn-lg btn-block">Aff 4</li>
+                        <li class="btn btn-default btn-lg btn-block">Aff 5</li> -->
+                    </ul>
+                </div><!-- well -->
+            </div> <!-- col-md-8 -->
+
+        </div> <!-- /.row -->
+    </div> <!-- /#content-container -->
+</div> <!-- #content -->
+
+
+
+
+<script src="{$GLOBALS.theme_path}js/flagging.js"></script>

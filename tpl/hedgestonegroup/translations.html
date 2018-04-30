@@ -1,0 +1,125 @@
+
+ 	
+	<div id="content">		
+		
+		<div id="content-header">
+			<h1>Translation to {$langName} - Overview</h1>
+		</div> <!-- #content-header -->	
+
+
+		<div id="content-container">
+      
+			<div>
+     
+				<h4 class="heading-inline">{$langName}
+				&nbsp;&nbsp;<small>Translation in progress</small>
+				&nbsp;&nbsp;</h4>
+        
+        
+        
+				<div class="btn-group ">
+				  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">					
+				    Change Language <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+
+               {loop="data"}
+		            <li><a href="/set-lang/{$value.lang}-{$value.name}">{$value.name}</a></li>
+                 {/loop}
+		          </ul>
+				</div>
+          
+         
+			</div>
+      
+			<br />
+
+
+			<div class="row">
+
+				<div class="col-md-3 col-sm-6">
+
+					<a href="/pages/missing" class="dashboard-stat primary">
+						<div class="visual">
+							<i class="fa fa-star"></i>
+						</div> <!-- /.visual -->
+
+						<div class="details">
+							<span class="content">Pages Translations</span>
+							<span class="value">{$pages_done} Done</span>
+						</div> <!-- /.details -->
+
+						<i class="fa fa-play-circle more"></i>
+
+					</a> <!-- /.dashboard-stat -->
+
+				</div> <!-- /.col-md-3 -->
+
+				<div class="col-md-3 col-sm-6">
+
+					<a href="/articles/missing" class="dashboard-stat secondary">
+						<div class="visual">
+							<i class="fa fa-shopping-cart"></i>
+						</div> <!-- /.visual -->
+
+						<div class="details">
+							<span class="content">Articles Translations</span>
+							<span class="value">{$articles_done} Done</span>
+						</div> <!-- /.details -->
+
+						<i class="fa fa-play-circle more"></i>
+
+					</a> <!-- /.dashboard-stat -->
+
+				</div> <!-- /.col-md-3 -->
+
+				<div class="col-md-3 col-sm-6">
+
+					<a href="/others/missing" class="dashboard-stat tertiary">
+						<div class="visual">
+							<i class="fa fa-clock-o"></i>
+						</div> <!-- /.visual -->
+
+						<div class="details">
+							<span class="content">Other Translations</span>
+							<span class="value">{$others_done} Done</span>
+						</div> <!-- /.details -->
+
+						<i class="fa fa-play-circle more"></i>
+
+					</a> <!-- /.dashboard-stat -->
+
+				</div> <!-- /.col-md-3 -->
+
+				<div class="col-md-3 col-sm-6">
+
+					<a href="javascript:;" class="dashboard-stat">
+						<div class="visual">
+							<i class="fa fa-money"></i>
+						</div> <!-- /.visual -->
+
+						<div class="details">
+							<span class="content">Overall Progress</span>
+							<span class="value">{$total_done} Done</span>
+						</div> <!-- /.details -->
+
+						<i class="fa fa-play-circle more"></i>
+
+					</a> <!-- /.dashboard-stat -->
+
+				</div> <!-- /.col-md-9 -->
+
+
+
+			</div> <!-- /.row -->
+
+
+
+
+		
+
+		</div> <!-- /#content-container -->
+		
+
+	</div> <!-- #content -->	
+	

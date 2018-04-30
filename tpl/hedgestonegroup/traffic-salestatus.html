@@ -1,0 +1,193 @@
+<style>
+	.row {
+		margin-left: -10px !important;
+	}
+</style>
+
+<div id="content">
+	<div id="content-header">
+		<h1>Sale Status Report</h1>		
+	</div>
+	
+	<div id="content-container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="row">
+					<form id="range-form">
+						<div class="row">
+							<div class="portlet">
+								<div class="col-md-2">
+									<h4>Start Date</h4>
+									<input class="form-control" type="text" placeholder="Start date" name="dpStart" id="dpStart" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+								</div>
+								
+								<div class="col-md-2">
+									<h4>End Date</h4>
+									<input class="form-control" type="text" placeholder="End date" name="dpEnd" id="dpEnd" data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+								</div>
+								
+								<div class="col-md-2">
+									<h4>Range</h4>
+									<div class="btn-group">
+										<button type="button" class="btn btn-default dropdown-toggle range" data-toggle="dropdown">
+											Select Range <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="javascript:selectRange(7);">Last 7 days</a></li>
+											<li><a href="javascript:selectRange(30);">Last 30 days</a></li>
+											<li><a href="javascript:selectRange(90);">Last 90 days</a></li>
+											<li class="divider"></li>							    
+											{loop="ranges"}
+											<li>
+												<a href="javascript:selectRange('{$value.value}');">
+													{$value.text}
+												</a>
+											</li>
+											{/loop}
+	
+										</ul>
+									</div>
+								</div>
+	
+								<div class="col-md-2">
+			                        <h4>Affiliate</h4>
+			                        <select id="affiliate" name="affiliate" class="form-control">
+										<option value="0" >All</option>
+			                            {loop="affGroups"}
+				                            <option value="{$value.id}" > {$value.gname}</option>                                                           
+			                  			{/loop}
+						            </select>
+			                    </div >
+			                    
+			                    <div class="col-md-2">
+			                        <h4>Country</h4>
+			                        <select id="country" name="country" class="form-control">
+										<option value="0" >All</option>
+			                            {loop="affGroups"}
+				                            <option value="{$value.id}" > {$value.gname}</option>                                                           
+			                  			{/loop}
+						            </select>
+			                    </div >                          
+	                            
+							</div>
+							
+						</div>
+						<div class="row">
+								<div class="portlet">
+									<div class="col-md-2 desk">
+									<h4>Desk</h4>
+									<select id="desk" name="desk" class="form-control">
+										<option value="0" >All</option>
+									</select>
+									</div >
+		
+		                            <div class="col-md-2 employee">
+		                            <h4>Employee</h4>
+		                            <select id="employee" name="employee" class="form-control">
+		                                               <option value="0" >All</option>
+		                                            </select>
+		                            </div >
+		                            <div class="col-md-2 ">
+										<h4>Sale Status</h4>
+										<select id="saleStatus" name="saleStatus" class="form-control">
+											<option value="0" >All</option>
+											<option value="new" >new</option>
+											<option value="noAnswer" >noAnswer</option>
+											<option value="checknumber" >checknumber</option>									
+											<option value="callAgain" >callAgain</option>									
+											<option value="inTheMoney" >inTheMoney</option>									
+											<option value="noCall" >noCall</option>									
+											<option value="reassign" >reassign</option>									
+										</select>
+									</div >
+									
+									<div class="col-md-2 ">
+										<h4>Type</h4>
+										<select id="type" name="type" class="form-control">
+											<option value="0" >All</option>
+											<option value="Customer" >Customer</option>
+											<option value="FTD" >FTD</option>
+											<option value="Depositors" >Depositors</option>									
+										</select>
+									</div >
+								</div>
+								
+							</div>
+							
+					</form>
+				
+					<div class="portlet" id="saleStatus_table_holder">
+						<div class="portlet-header" >			
+							<h3>
+								<i class="fa fa-table"></i>
+								Sale Status
+							</h3>			
+						</div> <!-- /.portlet-header -->			
+						<div class="portlet-content">		
+							<div class="table-responsive">			
+								<table 
+								class="table table-striped table-bordered table-hover table-highlight"  
+								data-display-rows="10"
+								data-info="true"
+								data-search="true"
+								data-length-change="true"
+								data-paginate="true"
+								id="saleStatus_table"
+								>
+	
+							</table>
+						</div> <!-- /.table-responsive -->
+						</div> <!-- /.portlet-content -->				
+					</div> 													
+					
+				</div>
+			</div>
+			
+			<div class="col-md-3">
+			<div class="list-group">  
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_new">-</h4>
+					<p class="list-group-item-text">New</p>
+				</a>
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_noAnswer">-</h4>
+					<p class="list-group-item-text">No Answer</p>
+				</a>
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_checkNumber">-</h4>
+					<p class="list-group-item-text">Check number</p>
+				</a>
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_callAgain">-</h4>
+					<p class="list-group-item-text">Call Again</p>
+				</a>
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_inTheMoney">-</h4>
+					<p class="list-group-item-text">In The Money</p>
+				</a>
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_noCall">-</h4>
+					<p class="list-group-item-text">No Call</p>
+				</a>
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_reassign">-</h4>
+					<p class="list-group-item-text">Reassign</p>
+				</a>
+				
+			</div>
+			
+			<div class="list-group">  
+				<a href="javascript:;" class="list-group-item">
+					<h4 class="list-group-item-heading" id="total_saleStatus">-</h4>
+					<p class="list-group-item-text">Total Sale Status</p>
+				</a>
+			</div
+			
+		</div>
+			
+		</div>
+	</div>
+	
+</div>
+<script src="{$GLOBALS.theme_path}js/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="{$GLOBALS.theme_path}js/salestatus.js"></script>

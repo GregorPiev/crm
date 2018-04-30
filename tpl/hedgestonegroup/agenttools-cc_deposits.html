@@ -1,0 +1,377 @@
+<style>
+    #customerContent {
+        display: none;
+    }
+
+    .list-group-item {
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    #customerBlock {
+        float: left;
+        margin-bottom: 20px;
+        padding-left: 0px !important;
+        width: 100%;
+    }
+
+    #customerData,
+    #customerSpotData {
+        padding-bottom: 20px;
+    }
+
+    #customerData,
+    #customerSpotData,
+    #customerDeposits,
+    #customerDepositLog,
+    #customerCalls,
+    #customerLoginLog,
+    #CustomerCreditCard,
+    #customerCommunications,
+    #customerPosition,
+    #customerRealAccountBalance {
+        width: 100%;
+        border: 1px solid #ccc;
+        float: left;
+        padding-top: 20px;
+        border-radius: 15px;
+        background-image: linear-gradient(to bottom, #fafafa 0%, #ebebeb 100%);
+
+    }
+
+    .icon {
+        display: inline-block;
+        font-size: 24px;
+        margin-left: 12px;
+    }
+
+    .icon h3 {
+        display: inline-block;
+        font-size: 22px;
+    }
+
+    .DTTT_container, .dataTables_filter {
+        display: none !important;
+    }
+
+    .pagination {
+        float: left;
+    }
+
+    .portlet-content {
+        padding: 0 20px 20px 20px;
+    }
+
+    .toggle {
+        cursor: pointer;
+    }
+
+    .or {
+        font-size: 18px;
+        padding-top: 35px;
+        text-align: center;
+        width: 3.333%;
+    }
+
+    #customerData div {
+        padding: 0px 10px !important;
+        font-size: 16px;
+    }
+
+    #customerSpotData div {
+        padding: 0px 10px !important;
+        font-size: 14px;
+    }
+
+    #customerSpotData div.email {
+        padding: 0px 10px !important;
+        font-size: 14px;
+        width: 500px;
+    }
+
+    #customerSpotData div.phone {
+        padding: 0px 10px !important;
+        font-size: 14px;
+    }
+
+    .list-group {
+        margin-bottom: 7px;
+    }
+
+    .edit {
+        cursor: pointer;
+    }
+    #creditCardForm .help-block{
+color:red;
+    }
+    #currency_symbol{
+        display: block;
+        float: left;
+        width: 6%;
+        padding: 6px 0 0 11px;
+        background: #ccc;
+        border-radius: 4px 0 0 4px;
+        height: 34px;
+    }
+    .form-control#deposit_amount{
+        width: 94%;
+        float:left;
+        border-radius: 0 4px 4px 0;
+    }
+    .visibility{
+        display: none !important;
+    }
+</style>
+<div id="content">
+
+    <div id="content-header">
+        <h1>Credit Card Deposit</h1>
+    </div>
+    <!-- #content-header -->
+
+
+    <div id="content-container">
+
+        <form action="" name="ccDeposit" method="POST" class="parameters-form" id="ccDeposit">
+
+            <div class="row" style="margin-bottom: 0;">
+                <div class="col-md-offset-3 col-md-6">
+                    <span class="col-md-2 text-right">User Id:</span>
+
+                    <div class="col-md-8"><input class="form-control" id="userId" name="customerId"
+                                                 placeholder="User Id" type="text" required=""
+                                                 data-validation-required-message="This is required"
+                                                 aria-invalid="false"></div>
+                </div>
+                <div class="col-md-offset-3 col-md-6" style="text-align: center;">
+                    OR
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <span class="col-md-2 text-right">User Email:</span>
+
+                    <div class="col-md-8">
+                        <input class="form-control" id="userEmail" name="customerEmail"
+                                                 placeholder="Email" type="email" required=""
+                                                 data-validation-required-message="This is required"
+                                                 aria-invalid="false">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <span class="col-md-2 text-right">Amount:</span>
+
+                    <div class="col-md-8"><input class="form-control" id="depositAmount" min="250" name="amount" value="250"
+                                                 type="number" required=""
+                                                 data-validation-required-message="This is required"
+                                                 aria-invalid="false"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-5 col-md-2 text-center"><input type="button" id="submitForm" value="Continue"
+                                                                         class="btn btn-secondary"></div>
+            </div>
+        </form>
+        <div>
+            <div id="promoCodesData_table_holder">
+                <form id="creditCardForm"  class="visibility" novalidate method="post">
+                    <input id="user_id" name="user_id" value="" type="hidden"/>
+                    <input id="Country_iso" name="country_iso" value="" type="hidden"/>
+                    <input id="Email" name="email" value="" type="hidden"/>
+                    <input id="Country" name="country" value="" type="hidden"/>
+                    <input id="Currency" name="currency" value="" type="hidden"/>
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right"> Amount:
+
+
+                            </span>
+
+                            <div class="col-md-8 control-group">
+                                <span id="currency_symbol"></span>
+                                <input class="form-control"  id="deposit_amount" min="200" value="" max="25000"
+                                       placeholder="Deposit Amount" name="depositAmount"
+                                       type="number"  required=""
+                                       data-validation-required-message="This is required" readonly>
+                                <p class="form-required help-block"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right">Card Number:</span>
+
+                            <div class="col-md-8 control-group">
+                                <input class="form-control"  id="cc_number" value="" placeholder="Card Number" name="cc_number"
+                                        type="text" autocomplete="off" required=""
+                                       data-validation-required-message="This is required" >
+                                <!--data-validation-callback-message="Credit Card Number is not valid "data-validation-callback-callback="validateCardNumber" -->
+                                <p class="form-required help-block"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right"> Expiration Date:</span>
+                            <div class="col-md-4 control-group">
+                                <select class="span7 form-control" name="expire_month" min=1 data-validation-min-message="Please select your card expiration month."/>
+                                <option value=0>Month</option>
+                                <option value=1>01</option>
+                                <option value=2>02</option>
+                                <option value=3>03</option>
+                                <option value=4>04</option>
+                                <option value=5>05</option>
+                                <option value=6>06</option>
+                                <option value=7>07</option>
+                                <option value=8>08</option>
+                                <option value=9>09</option>
+                                <option value=10>10</option>
+                                <option value=11>11</option>
+                                <option value=12>12</option>
+                                </select>
+
+                                <p class="form-required help-block"></p>
+                            </div>
+                            <div class="col-md-4 control-group">
+                            <select class="span5 form-control" name="expire_year" min=1  data-validation-min-message="Please select your card expiration year."/>
+                            <option value=0>Year</option>
+                            <option value=2015>2015</option>
+                            <option value=2016>2016</option>
+                            <option value=2017>2017</option>
+                            <option value=2018>2018</option>
+                            <option value=2019>2019</option>
+                            <option value=2020>2020</option>
+                            <option value=2021>2021</option>
+                            <option value=2022>2022</option>
+                            <option value=2023>2023</option>
+                            <option value=2024>2024</option>
+                            <option value=2025>2025</option>
+                            <option value=2026>2026</option>
+                            <option value=2027>2027</option>
+                            <option value=2028>2028</option>
+                            <option value=2029>2029</option>
+                            <option value=2030>2030</option>
+                            <option value=2031>2031</option>
+                            <option value=2032>2032</option>
+                            <option value=2033>2033</option>
+                            <option value=2034>2034</option>
+                            <option value=2035>2035</option>
+                            </select>
+                            <p class="form-required help-block"></p>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right">CVV:</span>
+                            <div class="col-md-8 control-group">
+                                <input class="form-control"  id="cvv" value="" placeholder="CVV" name="cvv"
+                                       type="text"   required=""
+                                       data-validation-required-message="This is required"/>
+                                <p class="form-required help-block"></p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right">User Name:</span>
+                            <div class="col-md-4 control-group">
+                                <input class="form-control"  id="First_Name" value="" placeholder="First Name" name="firstname"
+                                       type="text"   required=""
+                                       data-validation-required-message="This is required"/>
+                                <p class="form-required help-block"></p>
+                            </div>
+                            <div class="col-md-4 control-group">
+                                <input class="form-control"  id="Last_Name" value="" placeholder="Last Name" name="lastname"
+                                       type="text"   required=""
+                                       data-validation-required-message="This is required"/>
+                                <p class="form-required help-block"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right">Address:</span>
+                            <div class="col-md-8 control-group">
+                                <input class="form-control"  id="Street" value="" placeholder="Address" name="street"
+                                       type="text"   required=""
+                                       data-validation-required-message="This is required"/>
+                                <p class="form-required help-block"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right">City:</span>
+                            <div class="col-md-8 control-group">
+                                <input class="form-control"  id="City" value="" placeholder="City" name="city"
+                                       type="text"   required=""
+                                       data-validation-required-message="This is required"/>
+                                <p class="form-required help-block"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right">Post Code:</span>
+                            <div class="col-md-8 control-group">
+                                <input class="form-control"  id="Postal_Code" value="" placeholder="Post Code" name="postcode"
+                                       type="text"   required=""
+                                       data-validation-required-message="This is required"/>
+                                <p class="form-required help-block"></p>
+                            </div>
+
+
+                        <div class="span6">
+                            <div class="control-group">
+                                <label class="control-label responHiddenForm">Country</label>
+                                <input type="text" value="" class="span12" readonly>
+                                <input type="hidden" value="" name="country_name">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <span class="col-md-2 text-right">Country:</span>
+                            <div class="col-md-8 control-group">
+                                <input class="form-control"  id="country_name" value="" placeholder="Country" name="country_name"
+                                       type="text"   required="" readonly
+                                       data-validation-required-message="This is required"/>
+                                <!--<input type="hidden" value="" name="country_name">-->
+                                <p class="form-required help-block"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-offset-5 col-md-2 text-center">
+                            <input type="submit" id="submitDepositForm" value="Deposit"
+                                                                                 class="btn btn-secondary"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</div> <!-- /#content-container -->
+
+
+</div> <!-- #content -->
+<script src="{$GLOBALS.theme_path}js/CCDeposit.js"></script>
+<script src="{$GLOBALS.theme_path}js/plugins/jqBootstrapValidation.js"></script>
